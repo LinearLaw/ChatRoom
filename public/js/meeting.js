@@ -4,7 +4,7 @@ var socket = io();
 
 // 输入名字
 $(".el-button--primary").click(function(){
-    var inputVal = $(".userName").val();
+    var inputVal = $(".userName").val().trim();
     if (inputVal == "") {
         toast('请输入发表内容');
         return;
@@ -25,11 +25,11 @@ $(document).keyup(function(event){
 })
 
 /**
- * @desc 发表评论 按钮点击
+ * @desc 按钮点击发表评论 
  */
 function report(e) {
     var nowTime = new Date().getTime();
-    var inputVal = $(".form-comment input").val();
+    var inputVal = $(".form-comment input").val().trim();
     if (inputVal == "") {
         // toast('请输入发表内容');
         return;
@@ -88,7 +88,7 @@ socket.on("pinglun", function (msg) {
 });
 
 
-//点赞
+//发出点赞socket
 function dianzan(this_) {
     var nowtime = $(this_).attr("nowtime"); 
     socket.emit("dianzan", {
@@ -98,7 +98,7 @@ function dianzan(this_) {
 };
 
 var dianzanLimit = 100000000;
-//广播点赞
+//接收点赞推送
 socket.on("dianzanTotal", function (msg) {
     var nowtime = msg.nowtime;
     var dianzan = msg.dianzan;
@@ -109,8 +109,7 @@ socket.on("dianzanTotal", function (msg) {
     }
 });
 
-
-//退出会议
+//退出聊天室
 socket.on("deleteHourse",function(msg){
     //msg = { userName }
 
