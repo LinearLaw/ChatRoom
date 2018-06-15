@@ -31,8 +31,6 @@ app.use(cors());
 let apiSocket = require("./api/apiSocket.js");
 
 io.on("connection",function(socket){
-	
-	//app.post("/socket",apiSocket.apiSocket)
     apiSocket.apiSocket(socket);
 });
 
