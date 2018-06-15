@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http").Server(app);
 global.io = require("socket.io")(http);
+
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const multer = require('multer');
@@ -32,6 +33,10 @@ let apiSocket = require("./api/apiSocket.js");
 
 io.on("connection",function(socket){
     apiSocket.apiSocket(socket);
+    let count = io.eio.clientsCount;
+    io.emit("userConnect",{
+        userCount:count
+    })
 });
 
 

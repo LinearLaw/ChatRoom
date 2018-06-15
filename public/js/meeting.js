@@ -1,28 +1,8 @@
-//fastclick绑定
-if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function () {
-        FastClick.attach(document.body);
-    }, false);
-}
-
-(function (doc, win) {
-    var docEl = doc.documentElement,
-        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-        recalc = function () {
-            var clientWidth = docEl.clientWidth;
-            if (!clientWidth) return;
-            docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
-            if (docEl.style.fontSize.replace(/px/, '') > 100) docEl.style.fontSize = '100px';
-        };
-    if (!doc.addEventListener) return;
-    win.addEventListener(resizeEvt, recalc, false);
-    doc.addEventListener('DOMContentLoaded', recalc, false);
-})(document, window);
-
 
 var userName; // 用户名
 var socket = io();
 
+// 输入名字
 $(".el-button--primary").click(function(){
     var inputVal = $(".userName").val();
     if (inputVal == "") {
@@ -123,6 +103,20 @@ socket.on("dianzanTotal", function (msg) {
 socket.on("deleteHourse",function(msg){
     //msg = { userName }
 
+})
+
+//获取当前连接数
+socket.on("userConnect",function(msg){
+    var count = msg.userCount;
+    var html = '<div class="comment-item">'+
+                '<span class="exitChat">'+
+                    '<span>当前用户 </span>'+
+                    '<span class="exitName">'+count+'</span>'+
+                    '<span> 人</span>'+                    
+                '</span>'+
+            '</div>'
+    $(".comment-area").append(html);
+    $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
 })
 
 
