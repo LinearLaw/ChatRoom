@@ -5,9 +5,11 @@ exports.apiSocket = (socket)=> {
         let nowTime = new Date();
         let hours = nowTime.getHours();
         let minute = nowTime.getMinutes();
+        let second = nowTime.getSeconds();
         let h = hours<10?"0"+hours:hours;
         let min = minute<10?"0"+minute:minute;
-        return h + ":" + min;
+        let s = second<10?"0"+second:second;
+        return h + ":" + min + ":" + s;
     }
 
     socket.on("fabiao",function(msg){
