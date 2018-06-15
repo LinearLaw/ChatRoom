@@ -31,7 +31,7 @@ exports.apiSocket = (socket)=> {
         let nowtime = msg.nowtime;
         let dianzan = msg.dianzan;
 
-        dianzan ++;//点赞
+        dianzan ++ ;//点赞
         io.emit("dianzanTotal",{
            nowtime:nowtime,
            dianzan:dianzan
