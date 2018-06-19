@@ -34,7 +34,6 @@ app.use((req, res, next)=>{
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
-
 app.use(multer());
 app.use(cors());
 
