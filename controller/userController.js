@@ -21,7 +21,7 @@ exports.doRegist = (req,res)=>{
     }
     User.find({username:name},(err,result)=>{
         try{
-            if(result.length>0){
+            if(result && result.length>0){
                 res.send({
                     code:2,
                     msg:"Account already exist"
@@ -76,7 +76,7 @@ exports.doLogin = (req,res)=>{
     }
     User.find({userAccount:acc},(err,result)=>{
         // try{
-            if(result.length>0){
+            if(result && result.length>0){
                 if(result[0].userPwd == pwd){
                     let userId = result[0].userId;
                     let token = config.md5Create.tokenCreate(userId);
