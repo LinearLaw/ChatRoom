@@ -17,6 +17,8 @@ function setUserInfo(){
 }
 setUserInfo();
 
+
+
 // 输入名字
 $(".el-button--primary").click(function(){
     var inputVal = $(".userName").val().trim();
@@ -60,6 +62,11 @@ function report(e) {
 function plContent(){
 
 }
+
+socket.on('connect', function () {
+    socket.emit('join', userInfo);
+});
+
 //广播评论
 socket.on("pinglun", function (msg) {
     var userName = msg.userName + "";
@@ -132,12 +139,33 @@ socket.on("deleteHourse",function(msg){
 //获取当前连接数
 socket.on("userConnect",function(msg){
     var count = msg.userCount;
+    var info = msg.info;
     var html = '<div class="comment-item">'+
                 '<div class="exitChatBox">'+
                     '<span class="exitChat">'+
+                        '<span>' + info + ' , </span>'+
                         '<span>当前用户 </span>'+
                         '<span class="exitName">'+count+'</span>'+
                         '<span> 人</span>'+
+                    '</span>'+
+                '</div>'+
+            '</div>'
+    $(".comment-area").append(html);
+    $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
+})
+
+//离开事件
+$(window).bind('beforeunload', function(){
+    socket.emit("exit",{
+        username:userInfo.username
+    })
+})
+socket.on("userExit",function(msg){
+    let n = msg.username;
+    var html = '<div class="comment-item">'+
+                '<div class="exitChatBox">'+
+                    '<span class="exitChat">'+
+                        '<span>用户 ' + n + ' 退出了房间</span>'+
                     '</span>'+
                 '</div>'+
             '</div>'

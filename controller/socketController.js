@@ -12,12 +12,25 @@ exports.apiSocket = (socket)=> {
         return h + ":" + min + ":" + s;
     }
 
+    //新用户链接，进行推送
+    socket.on('join', function (userInfo) {
+        //当前链接数
+        let count = io.eio.clientsCount;
+
+        // 通知房间内人员
+        io.emit('userConnect', {
+            userCount:count,
+            info:"用户 " + userInfo.username + " 加入了房间"
+        });
+     });
+
+    //用户发出消息
     socket.on("fabiao",function(msg){
        let time = getTimeNow();
        let nowTime = msg.nowTime;
        let inputVal = msg.inputVal;
        let userName = msg.userName;
-       
+
        io.emit("pinglun",{
           inputVal:inputVal,
           userName:userName,
@@ -25,7 +38,7 @@ exports.apiSocket = (socket)=> {
           nowTime:nowTime
        });
     });
-   
+
    //点赞
     socket.on("dianzan",function(msg){
         let nowtime = msg.nowtime;
@@ -40,10 +53,10 @@ exports.apiSocket = (socket)=> {
 
     //退出会议
     socket.on("exit",function(msg){
-        var userName = msg.userName;
-        io.emit("deleteHourse",{
-            userName:userName
+        var n = msg.username;
+        console.log('用户 ' + n + ' 退出了房间');
+        io.emit("userExit",{
+            username:n
         })
     })
 };
-

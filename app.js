@@ -50,10 +50,6 @@ app.use('/', router);
 let apiSocket = require("./controller/socketController.js");
 io.on("connection",function(socket){
     apiSocket.apiSocket(socket);
-    let count = io.eio.clientsCount;
-    io.emit("userConnect",{
-        userCount:count
-    })
 });
 
 //监听服务
