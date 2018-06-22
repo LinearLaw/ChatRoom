@@ -21,7 +21,7 @@ button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}but
 .application-main{
     max-width:360px;
     padding:15px;
-    padding-top:10px;   
+    padding-top:10px;
     margin:0 auto;
 }
 .auth-form-header {
@@ -108,19 +108,19 @@ button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}but
 }
 .signUpBox .application-main{
     position:absolute;
-    top:10%;
+    top:5%;
     left:50%;
     transform:translateX(-50%);
     width:400px;
 }
 
-@keyframes action_skewOut{  
-    0%{opacity: 1;}  
+@keyframes action_skewOut{
+    0%{opacity: 1;}
     /* 50%{ opacity: 0.2;}   */
-    100%{ opacity: 0;}  
-} 
-@keyframes action_skew{  
-    0%{opacity: 0;}  
+    100%{ opacity: 0;}
+}
+@keyframes action_skew{
+    0%{opacity: 0;}
     /* 50%{ opacity: 0.2;}   */
-    100%{ opacity: 1;}  
-} 
+    100%{ opacity: 1;}
+}

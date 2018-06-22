@@ -9,21 +9,17 @@
     <meta name="description" content="" />
     <meta name="apple-mobile-web-app-capable" content="no" />
     <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../js/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/style-index.css" />
     <link rel="stylesheet" type="text/css" href="../css/toast.css" />
-    <link rel="stylesheet" type="text/css" href="../css/video/video-js.css" />
-
     <style type="text/css">
         .toast-wrap {
-            z-index: 45
+            z-index: 45;
         }
     </style>
 </head>
 
 <body>
-    <div class="toast-wrap">
-        <span class="toast-msg"></span>
-    </div>
     <div class="layout">
         <div class="comment-input" style="bottom: 0;top: auto;">
             <div class="form-comment">
@@ -38,16 +34,14 @@
             <!-- <span class="roomInfoNum">10002房间</span> -->
         </div>
         <div class="comment-area">
-            <!-- <div class="comment-item">
-                <div class="exitChatBox">
-                    <span class="exitChat">
-                        <span class="exitName">xxx</span>
-                        <span>离开了聊天室</span>
-                    </span>
-                </div>
-            </div> -->
+
         </div>
     </div>
+    <!-- 提示信息 -->
+    <div class="toast-wrap">
+        <span class="toast-msg"></span>
+    </div>
+    <!-- 弹框输入名字 -->
     <div class="shadowBox" style="display:none;">
         <div class="shadow"></div>
         <div class="el-dialog">
@@ -67,20 +61,12 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../js/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../js/fastclick.js"></script>
-
-<script type="text/javascript" src="../js/toast.js"></script>
+<script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../js/chat.js"></script>
 <script>
-    //fastclick绑定
-    if ('addEventListener' in document) {
-        document.addEventListener('DOMContentLoaded', function () {
-            FastClick.attach(document.body);
-        }, false);
-    }
     //换单位 px ——> rem
     (function (doc, win) {
         var docEl = doc.documentElement,

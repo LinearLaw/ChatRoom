@@ -28,13 +28,13 @@ global.path = require('path');
 
 app.use(session(config.session));
 //路由过滤
-app.use((req, res, next)=>{
-  if(req.path=="/html/list.html"){
-    res.send({ msg:"Error" });
-  }else{
-    next();
-  };
-});
+// app.use((req, res, next)=>{
+//   if(req.path=="/html/index.html"){
+//     res.send({ msg:"Error" });
+//   }else{
+//     next();
+//   };
+// });
 
 //中间件挂载
 app.use(express.static(__dirname + '/public'));

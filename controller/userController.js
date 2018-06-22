@@ -8,7 +8,7 @@ exports.doRegist = (req,res)=>{
     if(!acc || !pwd || !name){
         res.send({
             code:4,
-            msg:"please fill all input"
+            msg:"send data error, need userAccount/pwd/username"
         });
         return;
     }
@@ -63,7 +63,7 @@ exports.doLogin = (req,res)=>{
     if(!acc || !pwd ){
         res.send({
             code:4,
-            msg:"please fill all input"
+            msg:"send data error, need userAccount/pwd"
         });
         return;
     }

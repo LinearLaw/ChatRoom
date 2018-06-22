@@ -16,8 +16,6 @@ function setUserInfo(){
     $(".userInfoName").html("ID: "+userInfo.username);
 }
 setUserInfo();
-$getAuth()
-
 
 // 输入名字
 $(".el-button--primary").click(function(){

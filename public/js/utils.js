@@ -18,10 +18,11 @@ var $getAuth = function(callback){
         url:"/getAuth",
         method:"GET",
         success:function(res){
+            console.log(res);
             if(res.code == 1){
 
             }else{
-                callback()
+                callback();
             }
         },
         error:function(err){
@@ -32,4 +33,18 @@ var $getAuth = function(callback){
 
 var $config = {
     loginPage:"/html/login.html"
+}
+
+var toast = function(msg){
+    setTimeout(function(){
+        document.getElementsByClassName('toast-wrap')[0].getElementsByClassName('toast-msg')[0].innerHTML=msg;
+        var toastTag = document.getElementsByClassName('toast-wrap')[0];
+        toastTag.className = toastTag.className.replace('toastAnimate','');
+        setTimeout(function(){
+            toastTag.className = toastTag.className + ' toastAnimate';
+            setTimeout(function(){
+                toastTag.className = toastTag.className.replace('toastAnimate','');
+            },2000)
+        }, 100);
+    },500);
 }
