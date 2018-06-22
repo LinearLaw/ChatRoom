@@ -51,7 +51,7 @@ exports.apiSocket = (socket)=> {
        });
     });
 
-    //退出会议
+    //退出聊天
     socket.on("exit",function(msg){
         var n = msg.username;
         console.log('用户 ' + n + ' 退出了房间');

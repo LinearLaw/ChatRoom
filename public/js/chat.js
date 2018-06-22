@@ -63,6 +63,7 @@ function plContent(){
 
 }
 
+//连接推送
 socket.on('connect', function () {
     socket.emit('join', userInfo);
 });
@@ -154,7 +155,7 @@ socket.on("userConnect",function(msg){
     $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
 })
 
-//离开事件
+//用户离开room
 $(window).bind('beforeunload', function(){
     socket.emit("exit",{
         username:userInfo.username
@@ -168,7 +169,7 @@ socket.on("userExit",function(msg){
                         '<span>用户 ' + n + ' 退出了房间</span>'+
                     '</span>'+
                 '</div>'+
-            '</div>'
+            '</div>';
     $(".comment-area").append(html);
     $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
 })

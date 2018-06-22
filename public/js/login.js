@@ -102,7 +102,7 @@
                 $(".signUpBox").hide();
                 console.log(res);
                 if(res.code == 1){
-                    alert("success!");
+                    alert("Success regist ! Use your account to login now !");
                 }else{
 
                 }
