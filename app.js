@@ -6,13 +6,19 @@ global.io = require("socket.io")(http);
 
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
+const session = require("express-session");
+
 
 //multer , 上传文件的中间件
 const multer = require('multer');
 //cors，跨域资源的中间件
 const cors = require('cors');
 
+//router
 const router = require("./router/router.js");
+
+//配置文件
+global.config = require("./config/config.js");
 
 global.session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -20,7 +26,7 @@ global.request = require('request');
 global.fs = require('fs');
 global.path = require('path');
 
-
+app.use(session(config.session));
 //路由过滤
 app.use((req, res, next)=>{
   if(req.path=="/html/list.html"){

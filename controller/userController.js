@@ -12,7 +12,7 @@ exports.doRegist = (req,res)=>{
         });
         return;
     }
-    if(!config.reg.test(acc) || !config.reg.test(pwd)){
+    if(!config.reg.test(acc) || !config.reg.test(req.body.pwd)){
         res.send({
             code:3,
             msg:"Account or password error"
@@ -67,7 +67,7 @@ exports.doLogin = (req,res)=>{
         });
         return;
     }
-    if(!config.reg.test(acc) || !config.reg.test(pwd)){
+    if(!config.reg.test(acc) || !config.reg.test(req.body.pwd)){
         res.send({
             code:3,
             msg:"Account or password error"
@@ -75,7 +75,7 @@ exports.doLogin = (req,res)=>{
         return;
     }
     User.find({userAccount:acc},(err,result)=>{
-        try{
+        // try{
             if(result.length>0){
                 if(result[0].userPwd == pwd){
                     let userId = result[0].userId;
@@ -104,12 +104,27 @@ exports.doLogin = (req,res)=>{
                     msg:"Account not exist"
                 })
             }
-        }catch(err){
-            res.send({
-                code:-1,
-                msg:"Interval Server Error",
-                data:err
-            })
-        }
+        // }catch(err){
+        //     res.send({
+        //         code:-1,
+        //         msg:"Interval Server Error",
+        //         data:err
+        //     })
+        // }
     })
+}
+
+//验证登录状态
+exports.getAuth = (req,res)=>{
+    if(!req.session.UID || !req.session.TID){
+        res.send({
+            code:-1,
+            msg:"login status lose efficacy"
+        })
+    }else{
+        res.send({
+            code:1,
+            msg:"auth pass"
+        })
+    }
 }

@@ -47,7 +47,7 @@ module.exports = {
     cookie: {
       httpOnly: true,
       secure:   false,
-      maxAge:   7 * 24 * 60 * 60 * 1000,
+      maxAge:   2 * 24 * 60 * 60 * 1000,
     }
   },
   //4、id生成器

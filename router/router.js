@@ -8,6 +8,7 @@ const userCtrl = require("../controller/userController.js");
 // Login router
 router.post("/doLogin",userCtrl.doLogin);
 router.post("/doRegist",userCtrl.doRegist);
+router.get("/getAuth",userCtrl.getAuth);
 
 //UI Router
 router.get("/room/:roomid",function(req,res){
