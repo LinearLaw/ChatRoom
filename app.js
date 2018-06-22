@@ -23,7 +23,7 @@ global.path = require('path');
 
 //路由过滤
 app.use((req, res, next)=>{
-  if(req.path=="/html/chatRoom.html"){
+  if(req.path=="/html/list.html"){
     res.send({ msg:"Error" });
   }else{
     next();
@@ -41,7 +41,7 @@ app.use(cors());
 app.use('/', router);
 
 //socket服务推送
-let apiSocket = require("./api/apiSocket.js");
+let apiSocket = require("./controller/socketController.js");
 io.on("connection",function(socket){
     apiSocket.apiSocket(socket);
     let count = io.eio.clientsCount;
