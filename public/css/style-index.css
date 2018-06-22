@@ -147,8 +147,11 @@ div {
 .layout {
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom:0;
+  left: 50%;
+  transform:translateX(-50%);
   width: 100%;
+  max-width:7.68rem;
   font-size: 0.28rem;
   background-color: #f0f0f0;
 }
@@ -239,7 +242,7 @@ div {
   padding-left: 1.2rem;
   padding-right: 0.8rem;
   position: relative;
-  
+
 }
 .layout .comment-area .comment-item .exitChatBox{
   text-align: center;
@@ -251,7 +254,7 @@ div {
   background:#c1c1c1;
   color:#555;
   border-radius:5px;
-  
+
 }
 .layout .comment-area .comment-item .exitChat .exitName{
   color:#4a4a4a;
@@ -340,7 +343,7 @@ div {
   position: fixed;
   bottom: 0;
   height: 0.9rem;
-  padding-left: 0.28rem;
+  padding: 0 0.24rem;
   background-color: #fff;
   line-height: 0.9rem;
   padding-top: 0.1rem;
@@ -367,9 +370,8 @@ div {
 }
 
 .layout .comment-input .form-btn {
-  float: left;
+  float: right;
   width: 1.1rem;
-  margin-left: 0.2rem;
 }
 
 .layout .comment-input .form-btn input {
@@ -474,7 +476,7 @@ div {
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,.3);
   box-sizing: border-box;
-  
+
 }
 .el-dialog__header {
   padding: 20px;
