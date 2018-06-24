@@ -52,7 +52,7 @@ function report(e) {
         return;
     };
     socket.emit("fabiao", {
-        "userName": userName,
+        "userName": userInfo.username,
         "inputVal": inputVal,
         "nowTime": nowTime
     });
