@@ -1,4 +1,5 @@
-.media-object{
+.media-object,
+.uploadImg img{
     width:64px;
     height:64px;
 }
