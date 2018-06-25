@@ -1,3 +1,5 @@
+const RoomStatus = require("../model/RoomStatus.js");
+
 exports.apiSocket = (socket)=> {
 
     //获取当前时间
@@ -17,6 +19,15 @@ exports.apiSocket = (socket)=> {
         //当前链接数
         let count = io.eio.clientsCount;
         let ri = info.ri;
+        RoomStatus.find({roomId:ri},(err,result)=>{
+            if(result && result.length>0){
+                RoomStatus.find({roomId:ri},{
+                    $push:{ "join":{userId:info.userId} }
+                },(err,result)=>{
+                    console.log("success");
+                });
+            }
+        })
 
         // 通知房间内人员
         io.emit('userConnect', {
