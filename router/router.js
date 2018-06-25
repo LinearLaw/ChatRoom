@@ -17,11 +17,11 @@ router.post("/createRoom",roomCtrl.createRoom);
 router.get("/getRoomList",roomCtrl.getRoomList);
 
 //UI Router
-// router.get("/room/:roomid",function(req,res){
-//     var roomID = req.params.roomid;
-//     var p = path.join(__dirname, "../public/html/list.html");
-//     res.sendFile(p);
-// });
+router.get("/room/:roomid",function(req,res){
+    var roomID = req.params.roomid;
+    var p = path.join(__dirname, "../public/html/index.html");
+    res.sendFile(p);
+});
 
 
 module.exports = router;

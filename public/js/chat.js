@@ -6,6 +6,7 @@ $getAuth(function(){
 var userName; // 用户名
 var socket = io();
 var userInfo;
+var ri = GetQueryString("ri") || "admin";
 function setUserInfo(){
     if(!$cookie.get("UIN") ){
         location.href = $config.loginPage;
@@ -65,7 +66,6 @@ function plContent(){
 
 //连接推送
 socket.on('connect', function () {
-    var ri = GetQueryString("ri") || "admin";
     socket.emit('join', {
         username:userInfo.username,
         userId:userInfo.userId,
@@ -163,7 +163,9 @@ socket.on("userConnect",function(msg){
 //用户离开room
 $(window).bind('beforeunload', function(){
     socket.emit("exit",{
-        username:userInfo.username
+        username:userInfo.username,
+        userId:userInfo.userId,
+        ri:ri
     })
 })
 socket.on("userExit",function(msg){

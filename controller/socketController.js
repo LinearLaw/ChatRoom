@@ -18,6 +18,8 @@ exports.apiSocket = (socket)=> {
     socket.on('join', function (info) {
         //当前链接数
         let count = io.eio.clientsCount;
+
+        /* v2，多房间 */
         let ri = info.ri;
         RoomStatus.find({roomId:ri},(err,result)=>{
             if(result && result.length>0){
@@ -27,13 +29,19 @@ exports.apiSocket = (socket)=> {
                     console.log("success");
                 });
             }
-        })
-
-        // 通知房间内人员
-        io.emit('userConnect', {
+        });
+        //房间号加入，通知房内的user
+        socket.join(ri);
+        io.to(ri).emit('userConnect', {
             userCount:count,
             info:"用户 " + info.username + " 加入了房间"
         });
+
+        /* v1，单房间，通知房间内人员 */
+        // io.emit('userConnect', {
+        //     userCount:count,
+        //     info:"用户 " + info.username + " 加入了房间"
+        // });
      });
 
     //用户发出消息
@@ -67,6 +75,20 @@ exports.apiSocket = (socket)=> {
     socket.on("exit",function(msg){
         var n = msg.username;
         console.log('用户 ' + n + ' 退出了房间');
+        /* v2，多房间 */
+        RoomStatus.update({roomId:msg.ri},{
+            $pull:{ join:{ userId:msg.userId } }
+        },(err,result)=>{
+            if(result && result.length>0){
+                RoomStatus.find({roomId:ri},{
+                    $push:{ "join":{userId:info.userId} }
+                },(err,result)=>{
+                    console.log("success pull");
+                });
+            }
+        });
+
+        /* v1，单房间 */
         io.emit("userExit",{
             username:n
         })

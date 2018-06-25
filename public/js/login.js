@@ -32,7 +32,7 @@
                 if(res.code == 1){
                     console.log("success",res);
                     $cookie.set("UIN",JSON.stringify(res.data));
-                    location.href = "/html";
+                    location.href = "/html/list.html";
                 }else{
                     console.log(res);
                 }

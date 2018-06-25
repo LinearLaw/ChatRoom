@@ -55,6 +55,9 @@
 
         </div>
         <div class="col-lg-8 col-xs-12">
+            <div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Room</button>
+            </div>
             <div class="media">
                 <div class="media-left">
                     <a href="#">
@@ -68,6 +71,30 @@
             </div>
         </div>
         <h1>Room List</h1>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
