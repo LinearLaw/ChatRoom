@@ -8,19 +8,20 @@
     var pageNum = 1;
 
     function roomListItemModel(o){
-        var h = `<div class="roomListItem">
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                      <img class="media-object" src="../img/yll.jpg" alt="...">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">Room Title</h4>
-                    <p>Room description.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                </div>
-            </div>
-        </div>`
+
+        var h = '<div class="roomListItem">'+
+            '<div class="media">'+
+                '<div class="media-left">'+
+                    '<a href="/room/'+o.roomId+'">'+
+                      '<img class="media-object" src="../img/yll.jpg" alt="...">'+
+                    '</a>'+
+                '</div>'+
+                '<div class="media-body">'+
+                    '<h4 class="media-heading">'+o.roomName+'</h4>'+
+                    '<p>'+o.roomDesc+'</p>'+
+                '</div>'+
+            '</div>'+
+        '</div>'
         return h;
     }
     /*
@@ -28,8 +29,8 @@
      */
     function getRoomList(){
         var a = {
-            pageNum:pageSize ,
-            pageSize:pageNum ,
+            pageNum:pageNum ,
+            pageSize:pageSize ,
             userId:userInfo.userId
         }
         var url = "/getRoomList?pageNum="+pageNum+"&pageSize="+pageSize+"&userId="+userInfo.userId;
@@ -102,7 +103,7 @@
             }
         })
     }
-
+    getRoomList();
     $("#createRoomNow").click(function(){
         createRoom();
     })

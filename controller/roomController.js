@@ -57,7 +57,9 @@ exports.getRoomList = (req,res)=>{
         return;
     }
     let s = (pageNum - 1) * pageSize;
-    Room.find({"status":"open"}).skip(s).limit(pageSize).exec((err,result)=>{
+    Room.find({
+        // "status":"open"
+    }).skip(s).limit(pageSize).exec((err,result)=>{
         res.send({
             code:1,
             msg:"success",

@@ -3,6 +3,7 @@
     width:64px;
     height:64px;
 }
-.roomListContainer{
+.roomListContainer,
+.roomListItem{
     margin-top:15px;
 }
