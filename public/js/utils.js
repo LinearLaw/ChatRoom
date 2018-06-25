@@ -32,7 +32,13 @@ var $getAuth = function(callback){
 }
 
 var $config = {
-    loginPage:"/html/login.html"
+    loginPage:"/html/login.html",
+    //获取url的参数
+    GetQueryString:function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);return null;
+    }
 }
 
 var toast = function(msg){

@@ -13,14 +13,15 @@ exports.apiSocket = (socket)=> {
     }
 
     //新用户链接，进行推送
-    socket.on('join', function (userInfo) {
+    socket.on('join', function (info) {
         //当前链接数
         let count = io.eio.clientsCount;
+        let ri = info.ri;
 
         // 通知房间内人员
         io.emit('userConnect', {
             userCount:count,
-            info:"用户 " + userInfo.username + " 加入了房间"
+            info:"用户 " + info.username + " 加入了房间"
         });
      });
 

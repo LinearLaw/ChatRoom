@@ -65,7 +65,12 @@ function plContent(){
 
 //连接推送
 socket.on('connect', function () {
-    socket.emit('join', userInfo);
+    var ri = GetQueryString("ri") || "admin";
+    socket.emit('join', {
+        username:userInfo.username,
+        userId:userInfo.userId,
+        ri:ri
+    });
 });
 
 //广播评论
