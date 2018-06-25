@@ -38,6 +38,13 @@ var $config = {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]);return null;
+    },
+    getUserInfo:function(){
+        if(!$cookie.get("UIN") ){
+            location.href = $config.loginPage;
+            return false;
+        }
+        return JSON.parse($cookie.get("UIN"));
     }
 }
 

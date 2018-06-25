@@ -45,9 +45,10 @@ exports.createRoom = (req,res)=>{
 
 exports.getRoomList = (req,res)=>{
     // { pageNum:1 , pageSize:10 , userId:"" }
-    let pageNum = parseInt(req.params.pageNum) || 1;
-    let pageSize = parseInt(req.params.pageSize) || 10;
-    let userId = req.params.userId;
+    console.log(req.query);
+    let pageNum = parseInt(req.query.pageNum) || 1;
+    let pageSize = parseInt(req.query.pageSize) || 10;
+    let userId = req.query.userId;
     if(!userId){
         res.send({
             code:4,

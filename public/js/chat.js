@@ -5,18 +5,11 @@ $getAuth(function(){
 
 var userName; // 用户名
 var socket = io();
-var userInfo;
+var userInfo = $config.getUserInfo();
+
 var ri = GetQueryString("ri") || "admin";
-function setUserInfo(){
-    if(!$cookie.get("UIN") ){
-        location.href = $config.loginPage;
-        return;
-    }
-    userInfo = JSON.parse($cookie.get("UIN"));
-    $(".userInfo").show();
-    $(".userInfoName").html("ID: "+userInfo.username);
-}
-setUserInfo();
+$(".userInfo").show();
+$(".userInfoName").html("ID: "+userInfo.username);
 
 
 
