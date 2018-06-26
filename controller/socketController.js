@@ -31,7 +31,7 @@ exports.apiSocket = (socket)=> {
                 Room.find({roomId:ri},{
                     $push:{ "join":{userId:info.userId} }
                 },(err,result)=>{
-                    console.log("success");
+                    console.log("success join: "+info.userId);
                 });
             }
         });
@@ -103,7 +103,7 @@ exports.apiSocket = (socket)=> {
                 Room.find({roomId:ri},{
                     $push:{ "join":{userId:info.userId} }
                 },(err,result)=>{
-                    console.log("success pull");
+                    console.log("success pull: " + n);
                 });
             }
         });
