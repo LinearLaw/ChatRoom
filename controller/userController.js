@@ -75,42 +75,33 @@ exports.doLogin = (req,res)=>{
         return;
     }
     User.find({userAccount:acc},(err,result)=>{
-        // try{
-            if(result && result.length>0){
-                if(result[0].userPwd == pwd){
-                    let userId = result[0].userId;
-                    let token = config.md5Create.tokenCreate(userId);
-
-                    req.session.UID = userId;
-                    req.session.TID = token;
-                    res.send({
-                        code:1,
-                        msg:"login success",
-                        data:{
-                            username:result[0].username,
-                            userId:result[0].userId,
-                            createTime:result[0].createTime
-                        }
-                    })
-                }else{
-                    res.send({
-                        code:3,
-                        msg:"Account or password error"
-                    })
-                }
+        if(result && result.length>0){
+            if(result[0].userPwd == pwd){
+                let userId = result[0].userId;
+                let token = config.md5Create.tokenCreate(userId);
+                req.session.UID = userId;
+                req.session.TID = token;
+                res.send({
+                    code:1,
+                    msg:"login success",
+                    data:{
+                        username:result[0].username,
+                        userId:result[0].userId,
+                        createTime:result[0].createTime
+                    }
+                })
             }else{
                 res.send({
-                    code:2,
-                    msg:"Account not exist"
+                    code:3,
+                    msg:"Account or password error"
                 })
             }
-        // }catch(err){
-        //     res.send({
-        //         code:-1,
-        //         msg:"Interval Server Error",
-        //         data:err
-        //     })
-        // }
+        }else{
+            res.send({
+                code:2,
+                msg:"Account not exist"
+            })
+        }
     })
 }
 
