@@ -28,7 +28,7 @@
                     var g = res;
                     g.data.map(function(item,index){
                         g.data[index]["timeText"] = $config.getTime(item.createTime).timeText;
-                        g.data[index]["originAvatar"] = nowLocale + g.data[index]["originAvatar"];
+                        g.data[index]["originAvatar"] = nowLocale + g.data[index]["roomAvatar"];
                     });
                     var h = template("roomList",g);
                     $(".roomListContainer").append(h);

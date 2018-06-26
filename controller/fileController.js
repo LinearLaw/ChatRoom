@@ -4,7 +4,7 @@ exports.uploadPic = (req,res)=>{
         const localIp = config.idCreate.getIp();//IP地址
         const port = config.port;//端口号
 
-        let signal = req.query.userId;
+        let signal = config.idCreate.orangeSignal();
         let base64Data = req.body.titleImgSrc;
         let pos = base64Data.indexOf("4")+2;
 

@@ -1,5 +1,10 @@
 const Room = require("../model/Room.js");
-
+function getRoomId(socket){
+    var url = socket.request.headers.referer;
+    var splited = url.split('/');
+    var roomId = splited[splited.length - 1];   // 获取房间ID
+    return roomId
+}
 exports.apiSocket = (socket)=> {
 
     //获取当前时间
@@ -50,25 +55,40 @@ exports.apiSocket = (socket)=> {
        let nowTime = msg.nowTime;
        let inputVal = msg.inputVal;
        let userName = msg.userName;
+       let ri = getRoomId(socket);
 
-       io.emit("pinglun",{
+       // v2，多Room
+       io.to(ri).emit("pinglun",{
           inputVal:inputVal,
           userName:userName,
           time:time,
           nowTime:nowTime
        });
+
+       //v1，单room
+       // io.emit("pinglun",{
+       //    inputVal:inputVal,
+       //    userName:userName,
+       //    time:time,
+       //    nowTime:nowTime
+       // });
     });
 
    //点赞
     socket.on("dianzan",function(msg){
         let nowtime = msg.nowtime;
         let dianzan = msg.dianzan;
+        let ri = getRoomId(socket);
 
         dianzan ++ ;//点赞
-        io.emit("dianzanTotal",{
+        io.to(ri).emit("dianzanTotal",{
            nowtime:nowtime,
            dianzan:dianzan
-       });
+        });
+       //  io.emit("dianzanTotal",{
+       //     nowtime:nowtime,
+       //     dianzan:dianzan
+       // });
     });
 
     //退出聊天
@@ -87,9 +107,9 @@ exports.apiSocket = (socket)=> {
                 });
             }
         });
-
+        let ri = getRoomId(socket);
         /* v1，单房间 */
-        io.emit("userExit",{
+        io.to(ri).emit("userExit",{
             username:n
         })
     })
