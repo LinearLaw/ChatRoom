@@ -8,14 +8,27 @@ function md5(password){
 }
 
 const idCreate = {
-  //1、基于时间戳
-  appleSignal:function(){
-    return uuid.v1();
-  },
-  //2、基于随机数
-  orangeSignal:function(){
-    return uuid.v4();
-  }
+    //1、基于时间戳
+    appleSignal:function(){
+        return uuid.v1();
+    },
+    //2、基于随机数
+    orangeSignal:function(){
+        return uuid.v4();
+    },
+    //获取当前IP地址
+    getIp:function(){
+        var interfaces = require('os').networkInterfaces();
+        for(var devName in interfaces){
+            var iface = interfaces[devName];
+            for(var i=0;i<iface.length;i++){
+                var alias = iface[i];
+                if(alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
+                    return alias.address;
+                }
+            }
+        }
+    }
 }
 
 const md5Create = {
@@ -30,7 +43,7 @@ const md5Create = {
 const reg = /^[A-Za-z0-9]{6,16}$/;
 module.exports = {
   //1、端口号
-  port : 3003,
+  port : 9000,
   //2、db url
   db_url:"mongodb://127.0.0.1:27017/userdb",
   db_options:{

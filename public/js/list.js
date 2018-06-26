@@ -10,13 +10,13 @@
     /*
      * @desc 获取room list
      */
-    function getRoomList(){
+    function getRoomList(scb,ecb){
         var a = {
             pageNum:pageNum ,
             pageSize:pageSize ,
             userId:userInfo.userId
         }
-        var url = "/getRoomList?pageNum="+pageNum+"&pageSize="+pageSize+"&userId="+userInfo.userId;
+        // var url = "/getRoomList?pageNum="+pageNum+"&pageSize="+pageSize+"&userId="+userInfo.userId;
         $.ajax({
             url:"/getRoomList",
             method:"GET",
@@ -24,19 +24,49 @@
             success:function(res){
                 console.log(res);
                 if(res.code == 1){
-                    var g = res.data;
-                    var h = template("roomList",res);
-                    $(".roomListContainer").html(h);
+                    var g = res;
+                    g.data.map(function(item,index){
+                        g.data[index]["timeText"] = $config.getTime(item.createTime).timeText;
+                    });
+                    var h = template("roomList",g);
+                    $(".roomListContainer").append(h);
+                    // if(scb){scb();}
+                    if(res.data.length<=0 && ecb){ecb();}
                 }else{
-
+                    if(ecb){ecb();}
                 }
             },
             error:function(err){
                 console.log(err);
+                if(ecb){ecb();}
             }
         })
     }
-
+    /**
+     * @desc 上传图片
+     */
+    function uploadImg(cb){
+        var titleImgSrc = $("#roomAvatar").attr("src");
+        $.ajax({
+            url:'/uploadPic?userId='+userInfo.userId,
+            method:'post',
+            data:{
+                titleImgSrc:titleImgSrc
+            },
+            success:function(res){
+                console.log(res);
+                if(res.code == 1){
+                    $("#roomAvatar").attr("src",res.data);
+                    cb();
+                }else{
+                    console.log("error");
+                }
+            },
+            error:function(){
+                console.log("error");
+            }
+        })
+    }
     /**
      * @desc 创建room
      */
@@ -73,7 +103,7 @@
                     $(".roomListContainer").html("");
                     pageNum = 1;
                     getRoomList();
-                    $('#myModal').modal();
+                    $('#myModal').modal("hide");
                 }else{
 
                 }
@@ -86,8 +116,35 @@
     getRoomList();
     $(".welcomeName").html(userInfo.username + "");
     $("#createRoomNow").click(function(){
-        createRoom();
-    })
+        uploadImg(function(){
+            createRoom();
+        })
+    });
 
+    //上传图片
+    $("#avatarInput").on("change",function(){
+        var r= new FileReader();
+        f=$('#avatarInput')[0].files[0];
+        console.log(f);
+        r.readAsDataURL(f);
+        r.onload=function (e) {
+            $("#roomAvatar").attr("src",this.result);
+        };
+    });
+
+    /**
+     * @desc 加载下一页
+     */
+    $(".refreshList").click(function(e){
+        $(e.currentTarget).children(".glyphicon").removeClass("roundFresh");
+        setTimeout(function(){
+            $(e.currentTarget).children(".glyphicon").addClass("roundFresh");
+            pageNum++;
+            getRoomList(function(){},function(){
+                pageNum--;
+                if(pageNum<=1){pageNum=1;}
+            })
+        },100)
+    })
 
 })()

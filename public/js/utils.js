@@ -52,6 +52,26 @@ var $config = {
             return false;
         }
         return JSON.parse($cookie.get("UIN"));
+    },
+    getTime:function(time){
+        var timeObj = time?new Date(time):new Date();
+        var y = timeObj.getFullYear();
+        var mo = timeObj.getMonth() + 1;
+        var da = timeObj.getDate();
+        var ho = timeObj.getHours();
+        var mi = timeObj.getMinutes();
+        var se = timeObj.getSeconds();
+
+        var mon = mo>=10?mo:"0"+mo;
+        var d = da>=10?da:"0"+da;
+        var h = ho>=10?ho:"0"+ho;
+        var m = mi>=10?mi:"0"+mi;
+        var s = se>=10?se:"0"+se;
+        var text =  y + "-" + mon + "-"+d+" "+ h + ":" + m + ":"+s
+        return {
+            timeObj:{y:y , m:m , d:d , h:h , mi:mi , s:s},
+            timeText:text
+        }
     }
 }
 

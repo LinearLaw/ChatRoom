@@ -8,7 +8,6 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const session = require("express-session");
 
-
 //multer , 上传文件的中间件
 const multer = require('multer');
 //cors，跨域资源的中间件
@@ -16,7 +15,6 @@ const cors = require('cors');
 
 //router
 const router = require("./router/router.js");
-
 //配置文件
 global.config = require("./config/config.js");
 
@@ -53,6 +51,6 @@ io.on("connection",function(socket){
 });
 
 //监听服务
-http.listen(9000,()=>{
-    console.log("端口号9000，服务已就绪。");
+http.listen(config.port,()=>{
+    console.log("端口号"+config.port+"，服务已就绪。");
 })

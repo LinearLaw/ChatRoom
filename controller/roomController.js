@@ -46,7 +46,6 @@ exports.createRoom = (req,res)=>{
 
 exports.getRoomList = (req,res)=>{
     // { pageNum:1 , pageSize:10 , userId:"" }
-    console.log(req.query);
     let pageNum = parseInt(req.query.pageNum) || 1;
     let pageSize = parseInt(req.query.pageSize) || 10;
     let userId = req.query.userId;
@@ -59,8 +58,8 @@ exports.getRoomList = (req,res)=>{
     }
     let s = (pageNum - 1) * pageSize;
     Room.find({
-        // "status":"open"
-    }).skip(s).limit(pageSize).exec((err,result)=>{
+        "status":"open"
+    }).sort({'_id':-1}).skip(s).limit(pageSize).exec((err,result)=>{
         res.send({
             code:1,
             msg:"success",

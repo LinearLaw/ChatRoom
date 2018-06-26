@@ -5,6 +5,7 @@ let router = express.Router();
 
 const userCtrl = require("../controller/userController.js");
 const roomCtrl = require("../controller/roomController.js");
+const fileCtrl = require("../controller/fileController.js");
 
 // Login router
 router.post("/doLogin",userCtrl.doLogin);
@@ -23,5 +24,7 @@ router.get("/room/:roomid",function(req,res){
     res.sendFile(p);
 });
 
+//file Router
+router.post("/uploadPic",fileCtrl.uploadPic);
 
 module.exports = router;

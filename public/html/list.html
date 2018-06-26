@@ -58,8 +58,14 @@
             <h1>Welcome,</h1>
             <h2 class="welcomeName"></h1>
         </div>
-        <div class="col-lg-8 col-xs-12 roomListContainer">
-            <!-- <div class="roomListItem"></div> -->
+        <div class="col-lg-8 col-xs-12 roomListBox">
+            <div class="roomListContainer">
+                <!-- <div class="roomListItem"></div> -->
+            </div>
+            <div class="btn btn-default navbar-btn col-xs-12 refreshList">
+                <span class="glyphicon glyphicon-refresh roundFresh"></span>
+                Sign in
+            </div>
         </div>
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -98,27 +104,43 @@
     </div>
     <!-- template -->
     <script type="text/html" id="roomList">
-        {{each data}}
-        <div class="roomListItem">
-            <div class="media">
-                <div class="media-left">
-                    <img class="media-object" src="../img/yll.jpg" alt="...">
-                </div>
-                <div class="media-body">
-                    <a href="{{'/room/' + $value.roomId}}">
-                        <h4 class="media-heading">{{$value.roomName}}</h4>
-                        <p>{{$value.roomDesc}}</p>
-                    </a>
-                    <div class="joinPeopleBox clearfix">
-                        <span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span>
-                        {{if $value.join }}
-                        <span class="joinNum pull-right"> {{$value.join.length || ""}} </span>
-                        {{/if}}
+        {{if data.length>0}}
+            {{each data}}
+            <div class="roomListItem">
+                <div class="media">
+                    <div class="media-left">
+                        <img class="media-object" src="{{$value.roomAvatar}}" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <a href="{{'/room/' + $value.roomId}}">
+                            <h4 class="media-heading">{{$value.roomName}}</h4>
+                            <p>{{$value.roomDesc}}</p>
+                        </a>
+                        <div class="joinPeopleBox clearfix">
+                            <span>{{ $value.timeText }}</span>
+                            <span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span>
+                            {{if $value.join }}
+                            <span class="joinNum pull-right"> {{$value.join.length || ""}} </span>
+                            {{/if}}
+                        </div>
                     </div>
                 </div>
             </div>
+            {{/each}}
+        {{else if pageNum==1}}
+        <div class="roomListItem noRoomData">
+            <div class="media">
+                <div class="media-left">
+
+                </div>
+                <div class="media-body" style="text-align:center;">
+                    <h4>No chat room now , just create ! </h4>
+                </div>
+            </div>
         </div>
-        {{/each}}
+        {{else}}
+
+        {{/if}}
     </script>
     <script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

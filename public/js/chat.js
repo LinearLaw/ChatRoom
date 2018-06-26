@@ -9,8 +9,8 @@ var userInfo = $config.getUserInfo();
 
 var ri = $config.getRoomId() || "admin";
 $(".userInfo").show();
-$(".userInfoName").html("ID: "+userInfo.username);
-
+$(".userInfoName").html("User Name: "+userInfo.username);
+$(".roomInfoNum").html("Room ID: "+ri);
 
 
 // 输入名字
