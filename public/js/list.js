@@ -147,13 +147,15 @@
             getRoomList(function(){},function(){
                 pageNum--;
                 if(pageNum<=1){pageNum=1;}
-            })
+            });
         },100);
     });
 
     $("#logOutBtn").click(function(){
         $cookie.del("SID");
         $cookie.del("UIN");
+        $("#logOutModal").modal("hide");
+        location.reload();
     })
 
 })()
