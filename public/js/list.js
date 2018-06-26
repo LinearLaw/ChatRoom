@@ -115,6 +115,10 @@
     }
     getRoomList();
     $(".welcomeName").html(userInfo.username + "");
+
+    /**
+     * @desc 创建Room提交数据
+     */
     $("#createRoomNow").click(function(){
         uploadImg(function(){
             createRoom();
@@ -144,7 +148,12 @@
                 pageNum--;
                 if(pageNum<=1){pageNum=1;}
             })
-        },100)
+        },100);
+    });
+
+    $("#logOutBtn").click(function(){
+        $cookie.del("SID");
+        $cookie.del("UIN");
     })
 
 })()
