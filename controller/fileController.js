@@ -14,7 +14,7 @@ exports.uploadPic = (req,res)=>{
             const dataBuffer = new Buffer(base64,'base64');
             const dir = path.resolve(__dirname,"..") +'/public/imgData/'+signal;
             fs.writeFile(dir + ".jpg",dataBuffer, (err)=>{
-                let imgPath = "http://"+localIp+":"+port+"/imgData/"+signal+ ".jpg"
+                let imgPath = "/imgData/"+signal+ ".jpg";
                 res.send({
                     code:1,
                     data:imgPath

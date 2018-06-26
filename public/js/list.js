@@ -6,6 +6,7 @@
     var userInfo = $config.getUserInfo();
     var pageSize = 10;
     var pageNum = 1;
+    var nowLocale = $url('protocol',location.href)+"://"+$url('hostname',location.href)+":"+$url('port',location.href);
 
     /*
      * @desc 获取room list
@@ -27,6 +28,7 @@
                     var g = res;
                     g.data.map(function(item,index){
                         g.data[index]["timeText"] = $config.getTime(item.createTime).timeText;
+                        g.data[index]["originAvatar"] = nowLocale + g.data[index]["originAvatar"];
                     });
                     var h = template("roomList",g);
                     $(".roomListContainer").append(h);
@@ -56,7 +58,8 @@
             success:function(res){
                 console.log(res);
                 if(res.code == 1){
-                    $("#roomAvatar").attr("src",res.data);
+                    $("#roomAvatar").attr("src",nowLocale + res.data);
+                    $("#roomAvatar").data("origin",res.data);
                     cb();
                 }else{
                     console.log("error");
@@ -73,7 +76,7 @@
     function createRoom(){
         var roomName = $("#romeName").val().trim();
         var roomDesc = $("#roomDesc").val().trim();
-        var roomAvatar = $("#roomAvatar").attr("src");
+        var roomAvatar = $("#roomAvatar").data("origin");
         if(!roomName){
 
             return;
