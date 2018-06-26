@@ -34,6 +34,9 @@ $(document).keyup(function(event){
             return;
     }
 })
+$(".backToList").click(function(){
+    location.href = "/html/list.html";
+})
 
 /**
  * @desc 按钮点击发表评论
