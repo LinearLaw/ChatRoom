@@ -1,3 +1,7 @@
+/**
+ * @desc 废弃，Room 和 Room status不再分表 
+ */
+
 const mongoose = require("mongoose");
 
 const db = require("./db.js");

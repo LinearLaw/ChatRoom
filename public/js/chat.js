@@ -7,7 +7,7 @@ var userName; // 用户名
 var socket = io();
 var userInfo = $config.getUserInfo();
 
-var ri = GetQueryString("ri") || "admin";
+var ri = $config.getRoomId() || "admin";
 $(".userInfo").show();
 $(".userInfoName").html("ID: "+userInfo.username);
 

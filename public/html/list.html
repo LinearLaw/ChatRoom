@@ -51,25 +51,26 @@
     </div>
     <!-- main -->
     <div class="container">
-        <div class="col-lg-4 visible-lg-block">
-
+        <div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Room</button>
         </div>
-        <div class="col-lg-8 col-xs-12">
-            <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Room</button>
-            </div>
-
-            <div class="roomListContainer">
-                <div class="roomListItem">
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                              <img class="media-object" src="../img/yll.jpg" alt="...">
-                            </a>
-                        </div>
-                        <div class="media-body">
+        <div class="col-lg-4 visible-lg-block">
+            <h1>Welcome,</h1>
+            <h2 class="welcomeName"></h1>
+        </div>
+        <div class="col-lg-8 col-xs-12 roomListContainer">
+            <div class="roomListItem">
+                <div class="media">
+                    <div class="media-left">
+                        <!-- <img class="media-object" src="../img/yll.jpg" alt="..."> -->
+                    </div>
+                    <div class="media-body">
+                        <a href="#">
                             <h4 class="media-heading">Room Title</h4>
                             <p>Room description.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                        </a>
+                        <div>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +96,7 @@
                     <div class="form-group uploadImg">
                         <label for="avatarInput">
                             <div>Upload your room avatar</div>
-                            <div>
+                            <div class="imgBox">
                                 <img id="roomAvatar" src="../img/yll.jpg" alt="..." class="img-rounded">
                             </div>
                         </label>
@@ -110,8 +111,33 @@
             </div>
         </div>
     </div>
+    <!-- template -->
+    <script type="text/html" id="roomList">
+        {{each data}}
+        <div class="roomListItem">
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" src="../img/yll.jpg" alt="...">
+                </div>
+                <div class="media-body">
+                    <a href="{{'/room/' + $value.roomId}}">
+                        <h4 class="media-heading">{{$value.roomName}}</h4>
+                        <p>{{$value.roomDesc}}</p>
+                    </a>
+                    <div class="joinPeopleBox clearfix">
+                        <span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span>
+                        {{if $value.join }}
+                        <span class="joinNum pull-right"> {{$value.join.length || ""}} </span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
     <script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/assets/art-template/art-template.min.js"></script>
     <script type="text/javascript" src="../js/utils.js"></script>
     <script type="text/javascript" src="../js/list.js"></script>
 </body>

@@ -11,6 +11,9 @@ const roomSchema = new mongoose.Schema({
     "status":{type:String}, //open close
     "createTime":{type:Number},
     "exitTime":{type:Number}, // default 0
+    "join":[{
+        userId:{type:String}
+    }]
 });
 
 const Room = mongoose.model("roomModel",roomSchema);

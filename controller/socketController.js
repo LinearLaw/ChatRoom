@@ -1,4 +1,4 @@
-const RoomStatus = require("../model/RoomStatus.js");
+const Room = require("../model/Room.js");
 
 exports.apiSocket = (socket)=> {
 
@@ -21,9 +21,9 @@ exports.apiSocket = (socket)=> {
 
         /* v2，多房间 */
         let ri = info.ri;
-        RoomStatus.find({roomId:ri},(err,result)=>{
+        Room.find({roomId:ri},(err,result)=>{
             if(result && result.length>0){
-                RoomStatus.find({roomId:ri},{
+                Room.find({roomId:ri},{
                     $push:{ "join":{userId:info.userId} }
                 },(err,result)=>{
                     console.log("success");
@@ -76,11 +76,11 @@ exports.apiSocket = (socket)=> {
         var n = msg.username;
         console.log('用户 ' + n + ' 退出了房间');
         /* v2，多房间 */
-        RoomStatus.update({roomId:msg.ri},{
+        Room.update({roomId:msg.ri},{
             $pull:{ join:{ userId:msg.userId } }
         },(err,result)=>{
             if(result && result.length>0){
-                RoomStatus.find({roomId:ri},{
+                Room.find({roomId:ri},{
                     $push:{ "join":{userId:info.userId} }
                 },(err,result)=>{
                     console.log("success pull");

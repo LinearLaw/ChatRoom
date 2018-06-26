@@ -39,6 +39,13 @@ var $config = {
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]);return null;
     },
+    //获取roomId
+    getRoomId:function(){
+        var url = location.href;
+        var splited = url.split('/');
+        var roomId = splited[splited.length - 1];
+        return roomId;
+    },
     getUserInfo:function(){
         if(!$cookie.get("UIN") ){
             location.href = $config.loginPage;

@@ -24,6 +24,7 @@ exports.createRoom = (req,res)=>{
                 "status":"open", //open close
                 "createTime":createTime,
                 "exitTime":0, // default 0
+                "join":[]
             }
             let newRoom = new Room(roomObj);
             newRoom.save((err)=>{

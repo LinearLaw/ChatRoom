@@ -1,9 +1,29 @@
-.media-object,
-.uploadImg img{
+.media-left,
+.imgBox{
     width:64px;
     height:64px;
 }
-.roomListContainer,
-.roomListItem{
+.media-object,
+.uploadImg img{
+    width:64px;
+    height:100%;
+    border-radius:5px;
+}
+.roomListContainer{
+    padding:0;
     margin-top:15px;
+}
+.roomListItem{
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #e2e2e1;
+    border-radius:5px;
+}
+.joinPeopleBox span{
+    vertical-align: middle;
+    color:#999;
+}
+.joinPeopleBox .joinNum{
+    padding: 0 5px;
+    line-height: 1;
 }

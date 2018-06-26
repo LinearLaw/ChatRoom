@@ -7,23 +7,6 @@
     var pageSize = 10;
     var pageNum = 1;
 
-    function roomListItemModel(o){
-
-        var h = '<div class="roomListItem">'+
-            '<div class="media">'+
-                '<div class="media-left">'+
-                    '<a href="/room/'+o.roomId+'">'+
-                      '<img class="media-object" src="../img/yll.jpg" alt="...">'+
-                    '</a>'+
-                '</div>'+
-                '<div class="media-body">'+
-                    '<h4 class="media-heading">'+o.roomName+'</h4>'+
-                    '<p>'+o.roomDesc+'</p>'+
-                '</div>'+
-            '</div>'+
-        '</div>'
-        return h;
-    }
     /*
      * @desc 获取room list
      */
@@ -42,10 +25,7 @@
                 console.log(res);
                 if(res.code == 1){
                     var g = res.data;
-                    var h = "";
-                    g.map(function(item,index){
-                        h = h + roomListItemModel(item);
-                    })
+                    var h = template("roomList",res);
                     $(".roomListContainer").html(h);
                 }else{
 
@@ -104,6 +84,7 @@
         })
     }
     getRoomList();
+    $(".welcomeName").html(userInfo.username + "");
     $("#createRoomNow").click(function(){
         createRoom();
     })
