@@ -154,11 +154,4 @@
         },100);
     });
 
-    $("#logOutBtn").click(function(){
-        $cookie.del("SID");
-        $cookie.del("UIN");
-        $("#logOutModal").modal("hide");
-        location.reload();
-    })
-
 })()
