@@ -16,6 +16,7 @@ router.get("/getAuth",userCtrl.getAuth);
 router.post("/exitRoom",roomCtrl.exitRoom);
 router.post("/createRoom",roomCtrl.createRoom);
 router.get("/getRoomList",roomCtrl.getRoomList);
+router.get("/getRoomInfo",roomCtrl.getRoomInfo);
 
 //UI Router
 router.get("/room/:roomid",function(req,res){

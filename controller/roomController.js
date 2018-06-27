@@ -41,7 +41,6 @@ exports.createRoom = (req,res)=>{
             })
         }
     })
-
 }
 
 exports.getRoomList = (req,res)=>{
@@ -67,6 +66,32 @@ exports.getRoomList = (req,res)=>{
             pageNum:pageNum,
             pageSize:pageSize,
             count:result.length
+        })
+    })
+}
+exports.getRoomInfo = (req,res)=>{
+    // { roomId:"",userId:"" }
+    let roomId = req.query.roomId;
+    let userId = req.query.userId;
+    if(!roomId){
+        res.send({
+            code:4,
+            msg:"send data error , need roomId"
+        });
+        return;
+    }
+    if(!userId){
+        res.send({
+            code:4,
+            msg:"send data error , need userId"
+        });
+        return;
+    }
+    Room.find({roomId:roomId},(err,result)=>{
+        res.send({
+            code:1,
+            msg:"success",
+            data:result[0]
         })
     })
 }
