@@ -14,17 +14,17 @@ $(".roomInfoNum").html("Room ID: "+ri);
 
 
 // 输入名字
-$(".el-button--primary").click(function(){
-    var inputVal = $(".userName").val().trim();
-    if (inputVal == "") {
-        toast('请输入发表内容');
-        return;
-    };
-    $(".shadowBox").hide();
-    userName = inputVal;
-    $(".userInfo").show();
-    $(".userInfoName").html("ID: "+userName);
-})
+// $(".el-button--primary").click(function(){
+//     var inputVal = $(".userName").val().trim();
+//     if (inputVal == "") {
+//         toast('请输入发表内容');
+//         return;
+//     };
+//     $(".shadowBox").hide();
+//     userName = inputVal;
+//     $(".userInfo").show();
+//     $(".userInfoName").html("ID: "+userName);
+// })
 
 //按回车自动提交
 $(document).keyup(function(event){

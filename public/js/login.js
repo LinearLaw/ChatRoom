@@ -7,9 +7,10 @@
         $("#js-flash-container").hide();
         $("#js-flash-container_2").hide();
     }
-
-    //登录按钮
-    $(".submit-btn").click(function(){
+    /**
+     * @desc 登录
+     */
+    function login(){
         var a = $("#login_field").val();
         var p = $("#password").val();
         if(!a || !p){
@@ -41,6 +42,22 @@
                 console.log(err)
             }
         })
+    }
+
+    //登录按钮
+    $(".submit-btn").click(function(){
+        login();
+    })
+
+    //回车，登录
+    $(document).keyup(function(event){
+        if(!$(".signUpBox").hasClass("active")){
+            switch(event.keyCode) {
+                case 13:
+                    login();
+                    return;
+            }
+        }
     })
 
     //关闭登录的错误提示框
@@ -54,6 +71,7 @@
     //关闭注册弹框
     $(".close-signup").click(function(){
         errorMsgHide();
+        $(".signUpBox").removeClass("active");
         $(".signUpBox").css("opacity",0);
         setTimeout(function(){
             $(".signUpBox").hide();
@@ -66,6 +84,7 @@
     //弹出注册框
     $(".sign-up-pop").click(function(){
         $(".signUpBox").show();
+        $(".signUpBox").addClass("active");
         $(".signUpBox").css({
             "animation":"action_skew 0.3s linear",
         })
@@ -100,6 +119,7 @@
             data:s,
             success:function(res){
                 $(".signUpBox").hide();
+                $(".signUpBox").removeClass("active");
                 console.log(res);
                 if(res.code == 1){
                     toast("Success regist ! Use your account to login now !");

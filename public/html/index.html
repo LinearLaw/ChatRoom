@@ -20,30 +20,74 @@
 </head>
 
 <body>
-    <div class="layout">
-        <div class="comment-input" style="bottom: 0;top: auto;">
-            <div class="form-comment">
-                <input type="text" placeholder="说两句">
-            </div>
-            <div class="form-btn" onclick="report()">
-                <input value="发表" type="button">
-            </div>
-        </div>
-        <div class="userInfo">
-            <span class="glyphicon glyphicon-chevron-left backToList"></span>
-            <span class="roomInfoNum"></span>
-            <span class="userInfoName pull-right"></span>
-        </div>
-        <div class="comment-area">
+    <!-- header -->
+    <div class="header">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/html/list.html">Chat Room</a>
+                    </div>
 
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li data-toggle="modal" data-target=".bs-example-modal-sm"><a href="#">Log Out</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
         </div>
     </div>
+    <div class="container">
+        <div class="visible-lg-block">
+
+        </div>
+        <div class="layout">
+            <div class="comment-input" style="bottom: 0;top: auto;">
+                <div class="form-comment">
+                    <input type="text" placeholder="说两句">
+                </div>
+                <div class="form-btn" onclick="report()">
+                    <input value="发表" type="button">
+                </div>
+            </div>
+            <div class="userInfo">
+                <span class="glyphicon glyphicon-chevron-left backToList"></span>
+                <span class="roomInfoNum"></span>
+                <span class="userInfoName"></span>
+            </div>
+            <div class="comment-area">
+
+            </div>
+        </div>
+    </div>
+
     <!-- 提示信息 -->
     <div class="toast-wrap">
         <span class="toast-msg"></span>
     </div>
     <!-- 弹框输入名字 -->
-    <div class="shadowBox" style="display:none;">
+    <!-- <div class="shadowBox" style="display:none;">
         <div class="shadow"></div>
         <div class="el-dialog">
             <div class="el-dialog__header">
@@ -54,13 +98,13 @@
             </div>
             <div class="el-dialog__footer">
                 <span class="dialog-footer">
-                    <button type="button" class="el-button el-button--primary">
+                    <button type="button" class="el-button el-button-primary">
                         <span>确 定</span>
                     </button>
                 </span>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 <script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
