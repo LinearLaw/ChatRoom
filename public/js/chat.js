@@ -25,9 +25,6 @@ $(".backToList").click(function(){
     location.href = "/html/list.html";
 });
 
-$(".seeRoomInfo").click(function(){
-
-})
 /**
  * @desc 按钮点击发表评论
  */

@@ -102,7 +102,7 @@
             success:function(res){
                 console.log(res);
                 if(res.code == 1){
-                    alert("Create Room Success!");
+                    $TipsDialog({text:"Create Room Success!"});
                     $(".roomListContainer").html("");
                     pageNum = 1;
                     getRoomList();
@@ -135,6 +135,7 @@
         console.log(f);
         r.readAsDataURL(f);
         r.onload=function (e) {
+            $(".imgBox").addClass("active");
             $("#roomAvatar").attr("src",this.result);
         };
     });

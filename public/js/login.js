@@ -15,10 +15,15 @@
         var p = $("#password").val();
         if(!a || !p){
             $("#js-flash-container").show();
+            $TipsDialog({text:"Account and password must fill in."});
             return;
         }
         if(!reg.a.test(a)||!reg.p.test(p)){
             $("#js-flash-container").show();
+            $TipsDialog({
+                timeout: 2000,
+                text:"Account or password format error.6-16 words,</br> accept uppercase/lowercase letters and numbers"
+            });
             return;
         }
         var s = {
@@ -32,6 +37,7 @@
             success:function(res){
                 if(res.code == 1){
                     console.log("success",res);
+                    $TipsDialog({text:"Login Success!"});
                     $cookie.set("UIN",JSON.stringify(res.data));
                     location.href = "/html/list.html";
                 }else{
@@ -98,14 +104,24 @@
         var rp = $("#signup_pr").val();
         if(!a || !p || !n || !rp){
             $("#js-flash-container_2").show();
+            $TipsDialog({
+                text:"Account/password/confirm password</br>All must fill in."
+            });
             return;
         }
         if(!reg.a.test(a)||!reg.p.test(p) || !reg.p.test(rp)){
             $("#js-flash-container_2").show();
+            $TipsDialog({
+                timeout: 2000,
+                text:"Account or password format error.6-16 words,</br> accept uppercase/lowercase letters and numbers"
+            });
             return;
         }
         if(rp!=p){
             $("#js-flash-container_2").show();
+            $TipsDialog({
+                text:"The password entered twice is inconsistent"
+            });
             return;
         }
         var s = {
@@ -122,7 +138,7 @@
                 $(".signUpBox").removeClass("active");
                 console.log(res);
                 if(res.code == 1){
-                    toast("Success regist ! Use your account to login now !");
+                    $TipsDialog({text:"Success regist ! Use your account to login now !"});
                 }else{
 
                 }

@@ -1,1 +1,7 @@
-.toast-wrap{opacity:1;position:fixed;top:46%;color:#fff;width:100%;text-align:center;display:none}.toast-msg{background-color:rgba(0,0,0,.7);padding:4px 8px;border-radius:5px;font-size:.3rem}.toastAnimate{display:block!important}
+.toast-wrap{
+    opacity:1;position:fixed;top:46%;color:#fff;width:100%;text-align:center;display:none;
+}
+.toast-msg{
+    background-color:rgba(0,0,0,.7);padding:4px 8px;border-radius:5px;font-size:.3rem;
+}
+.toastAnimate{display:block!important}
