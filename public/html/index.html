@@ -23,7 +23,7 @@
     <!-- header -->
     <div class="header">
         <div class="container">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -39,15 +39,14 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li data-toggle="modal" data-target=".bs-example-modal-sm"><a href="#">Log Out</a></li>
+                            <!-- <li><a href="#"></a></li> -->
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Setting</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li data-toggle="modal" data-target=".bs-example-modal-sm"><a href="#">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -59,9 +58,33 @@
         </div>
     </div>
     <div class="container commentBox">
-        <div class="visible-lg-block">
-
+        <div class="col-sm-4 hidden-xs roomInfo">
+            <!-- roomInfo -->
         </div>
+        <script type="text/html" id="roomInfo">
+            <div class="media roomAvatarBox">
+                <div class="media-left">
+                    <img class="media-object roomAvatar" src="{{roomAvatar}}" alt="...">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading roomTitle">{{roomName}}</h4>
+                    <div class="userInfoCount">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="iconUserCount"></span>
+                    </div>
+                    <div>
+                        <span>Manager: </span>
+                        <span class="roomManage">{{username}}</span>
+                    </div>
+                    <div>
+                        <span class="createTime">{{timeText}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">{{roomDesc}}</div>
+            </div>
+        </script>
         <div class="layout">
             <div class="comment-input" style="bottom: 0;top: auto;">
                 <div class="form-comment">
@@ -75,9 +98,10 @@
                 <span class="glyphicon glyphicon-chevron-left backToList"></span>
                 <span class="roomInfoNum"></span>
                 <span class="userInfoName"></span>
+                <span class="glyphicon glyphicon-th pull-right visible-xs-block seeRoomInfo" data-toggle="modal" data-target="#roomInfoModal"></span>
             </div>
             <div class="comment-area">
-
+                <!-- comment area -->
             </div>
         </div>
     </div>
@@ -86,26 +110,8 @@
     <div class="toast-wrap">
         <span class="toast-msg"></span>
     </div>
-    <!-- 弹框输入名字 -->
-    <!-- <div class="shadowBox" style="display:none;">
-        <div class="shadow"></div>
-        <div class="el-dialog">
-            <div class="el-dialog__header">
-                <span class="el-dialog__title">请输入名字</span>
-            </div>
-            <div class="el-dialog__body form-comment">
-                <input type="text" class="userName" />
-            </div>
-            <div class="el-dialog__footer">
-                <span class="dialog-footer">
-                    <button type="button" class="el-button el-button-primary">
-                        <span>确 定</span>
-                    </button>
-                </span>
-            </div>
-        </div>
-    </div> -->
-    <!-- modal -->
+
+    <!-- modal 1  logout-->
     <div class="modal fade bs-example-modal-sm" id="logOutModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -119,9 +125,34 @@
             </div>
         </div>
     </div>
+    <!-- modal 2  room Info -->
+    <div class="modal fade bs-example-modal-sm" id="roomInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="roomInfoModalTitle">RoomInfo</h4>
+                </div>
+                <div class="modal-body roomInfoBody">
+                    <!-- id:roomModalTpl -->
+                </div>
+                <script type="text/html" id="roomModalTpl">
+                    <div class="userInfoCount mg-b-5">
+                        People Count:
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="iconUserCount"></span>
+                    </div>
+                    <p class="mg-b-5">Manager: {{username}}</p>
+                    <p class="mg-b-5 createTime">Create Time: {{timeText}}</p>
+                    <p class="mg-b-5"><h4>{{roomDesc}}</h3></p>
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="../js/assets/jquery/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../js/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/assets/art-template/art-template.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="../js/header.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>

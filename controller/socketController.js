@@ -28,10 +28,10 @@ exports.apiSocket = (socket)=> {
         let ri = info.ri;
         Room.find({roomId:ri},(err,result)=>{
             if(result && result.length>0){
-                Room.find({roomId:ri},{
-                    $push:{ "join":{userId:info.userId} }
+                Room.update({roomId:ri},{
+                    $push:{ "join":{userId:info.userId , username:info.username} }
                 },(err,result)=>{
-                    console.log("success join: "+info.userId);
+                    console.log("success join: "+err,result);
                 });
             }
         });

@@ -10,21 +10,8 @@ var userInfo = $config.getUserInfo();
 var ri = $config.getRoomId() || "admin";
 $(".userInfo").show();
 $(".userInfoName").html("User Name: "+userInfo.username);
-$(".roomInfoNum").html("Room ID: "+ri);
 
-
-// 输入名字
-// $(".el-button--primary").click(function(){
-//     var inputVal = $(".userName").val().trim();
-//     if (inputVal == "") {
-//         toast('请输入发表内容');
-//         return;
-//     };
-//     $(".shadowBox").hide();
-//     userName = inputVal;
-//     $(".userInfo").show();
-//     $(".userInfoName").html("ID: "+userName);
-// })
+getRoomInfo();
 
 //按回车自动提交
 $(document).keyup(function(event){
@@ -33,11 +20,14 @@ $(document).keyup(function(event){
             report();
             return;
     }
-})
+});
 $(".backToList").click(function(){
     location.href = "/html/list.html";
-})
+});
 
+$(".seeRoomInfo").click(function(){
+
+})
 /**
  * @desc 按钮点击发表评论
  */
@@ -58,6 +48,31 @@ function report(e) {
 
 function plContent(){
 
+}
+/**
+ * @desc get room info
+ */
+function getRoomInfo(){
+    $.ajax({
+        url:"/getRoomInfo",
+        type:"GET",
+        data:{roomId:ri,userId:userInfo.userId},
+        success:function(res){
+            console.log(res);
+            if(res.code == 1){
+                res.data["timeText"] = $config.getTime(res.data.createTime).timeText;
+                var html = template("roomInfo",res.data);
+                var html_2 = template("roomModalTpl",res.data)
+                $(".roomInfo").html(html);
+                $(".roomInfoBody").html(html_2);
+                $(".roomInfoModalTitle").html(res.data.roomName);
+                $(".roomInfoNum").html("Room [ "+res.data.roomName + " ]");
+            }
+        },
+        error:function(err){
+            console.log(err);
+        }
+    })
 }
 
 //连接推送
@@ -154,6 +169,7 @@ socket.on("userConnect",function(msg){
             '</div>'
     $(".comment-area").append(html);
     $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
+    $(".iconUserCount").text(count);
 })
 
 //用户离开room

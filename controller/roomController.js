@@ -87,13 +87,40 @@ exports.getRoomInfo = (req,res)=>{
         });
         return;
     }
-    Room.find({roomId:roomId},(err,result)=>{
-        res.send({
-            code:1,
-            msg:"success",
-            data:result[0]
+    new Promise(function(resolve, reject){
+        Room.find({roomId:roomId},(err,result)=>{
+            resolve(result[0]);
+        });
+    }).then((result)=>{
+        User.find({userId:userId},(err,userRes)=>{
+            if(userRes.length > 0){
+                let username = userRes[0].username;
+                let sendInfo = {
+                    userId:result.userId,
+                    createTime:result.createTime,
+                    join:result.join,
+                    roomAvatar:result.roomAvatar,
+                    roomDesc:result.roomDesc,
+                    roomId:result.roomId,
+                    roomName:result.roomName,
+                    status:result.status,
+                    userId:result.userId,
+                    username:username
+                }
+                res.send({
+                    code:1,
+                    msg:"success",
+                    data:sendInfo
+                })
+            }else{
+                res.send({
+                    code:3,
+                    msg:"no such user"
+                })
+            }
         })
     })
+
 }
 
 exports.exitRoom = (req,res)=>{
