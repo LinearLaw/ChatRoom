@@ -103,6 +103,48 @@
             <div class="comment-area">
                 <!-- comment area -->
             </div>
+
+            <!-- template 1  commentTpl-->
+            <script type="text/html" id="cmtTpl">
+                <div class="comment-item" nowtime="{{nowTime}}">
+                    <a href="#" class="avatar noAvatar">
+                        <span> {{userSingleWord}} </span>
+                    </a>
+                    <div class="content">
+                        <div class="from">
+                            <span class="name"> {{userName}} </span>
+                            <span class="date"> {{time}}  </span>
+                        </div>
+                        <div class="message">
+                            {{content}}
+                            <div class="sayContent">
+                                <span class="dianzan" onclick="dianzan(this)" nowtime="{{nowTime}}">
+                                    <img class="thumpBtn" src="../img/icon/zan.png">
+                                    <img class="alreadyThumps" src="../img/icon/zan1.png" alt="">
+                                    <em>0</em>
+                                </span>
+                                <!-- <span class="plContent" onclick="plContent(this)">
+                                    <img src="../img/edit.png">
+                                    <em>评论</em>
+                                </span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </script>
+
+            <!-- template 1  link msg-->
+            <script type="text/html" id="onePsnLink">
+                <div class="comment-item">
+                    <div class="exitChatBox">
+                        <span class="exitChat">
+                            <span> {{infoTop}} </span>
+                            <span class="exitName">{{infoMiddle}}</span>
+                            <span>{{infoBottom}}</span>
+                        </span>
+                    </div>
+                </div>
+            </script>
         </div>
     </div>
 
