@@ -68,3 +68,43 @@ exports.reportComment = (req,res)=>{
         }
     })
 }
+
+exports.deleteComment = (req,res)=>{
+    //{ userId:"" , "commnetId" }
+    if(!req.body.userId || !req.body.commentId){
+        res.send({
+            code:4,
+            msg:"send data error, need userId/commentId"
+        });
+        return;
+    }
+    new Promise((resolve,reject)=>{
+        Comment.find({commentId:req.body.commentId},(err,result)=>{
+            if(result && result.length>0){
+                if(result[0]["userId"] == req.body.userId){
+                    resolve();
+                }else{
+                    res.send({
+                        code:2,
+                        msg:"User have no auth to delete this comment."
+                    })
+                }
+            }else{
+                res.send({
+                    code:3,
+                    msg:"no such comment"
+                });
+                return;
+            }
+        })
+    }).then((err)=>{
+        Comment.remove({commentId:req.body.commentId},(err)=>{
+            res.send({
+                code:1,
+                msg:"success"
+            })
+        })
+    })
+
+
+}

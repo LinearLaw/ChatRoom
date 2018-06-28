@@ -24,6 +24,11 @@ router.post("/createRoom",roomCtrl.createRoom);
 //comment router
 router.get("/getCommentList",cmtCtrl.getCommentList);
 router.post("/reportComment",cmtCtrl.reportComment);
+router.post("/deleteComment",cmtCtrl.deleteComment);
+
+
+//file Router
+router.post("/uploadPic",fileCtrl.uploadPic);
 
 
 //UI Router
@@ -33,7 +38,6 @@ router.get("/room/:roomid",function(req,res){
     res.sendFile(p);
 });
 
-//file Router
-router.post("/uploadPic",fileCtrl.uploadPic);
+
 
 module.exports = router;
