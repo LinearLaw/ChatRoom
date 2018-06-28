@@ -36,6 +36,7 @@ function report(e) {
         return;
     };
     socket.emit("fabiao", {
+        "userId":userInfo.userId,
         "userName": userInfo.username,
         "inputVal": inputVal,
         "nowTime": nowTime

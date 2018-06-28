@@ -1,23 +1,25 @@
 const Room = require("../model/Room.js");
+const cmtCtrl = require("../controller/commentController.js");
+
+//获取roomId
 function getRoomId(socket){
     var url = socket.request.headers.referer;
     var splited = url.split('/');
     var roomId = splited[splited.length - 1];   // 获取房间ID
     return roomId
 }
+//获取当前时间
+function getTimeNow(){
+    let nowTime = new Date();
+    let hours = nowTime.getHours();
+    let minute = nowTime.getMinutes();
+    let second = nowTime.getSeconds();
+    let h = hours<10?"0"+hours:hours;
+    let min = minute<10?"0"+minute:minute;
+    let s = second<10?"0"+second:second;
+    return h + ":" + min + ":" + s;
+}
 exports.apiSocket = (socket)=> {
-
-    //获取当前时间
-    function getTimeNow(){
-        let nowTime = new Date();
-        let hours = nowTime.getHours();
-        let minute = nowTime.getMinutes();
-        let second = nowTime.getSeconds();
-        let h = hours<10?"0"+hours:hours;
-        let min = minute<10?"0"+minute:minute;
-        let s = second<10?"0"+second:second;
-        return h + ":" + min + ":" + s;
-    }
 
     //新用户链接，进行推送
     socket.on('join', function (info) {
@@ -52,17 +54,27 @@ exports.apiSocket = (socket)=> {
     //用户发出消息
     socket.on("fabiao",function(msg){
        let time = getTimeNow();
-       let nowTime = msg.nowTime;
-       let inputVal = msg.inputVal;
-       let userName = msg.userName;
        let ri = getRoomId(socket);
 
        // v2，多Room
        io.to(ri).emit("pinglun",{
-          inputVal:inputVal,
-          userName:userName,
+          inputVal:msg.inputVal,
+          userName:msg.userName,
           time:time,
-          nowTime:nowTime
+          nowTime:msg.nowTime
+       });
+
+       //调用接口，实例化存储
+       let cmtObj = {
+           content:msg.inputVal,
+           userId:msg.userId,
+           userAvatar:msg.userAvatar||"",
+           username:msg.userName,
+           roomId:ri
+       }
+       cmtCtrl.reportComment(
+           {body:cmtObj},
+           {send:function(obj){/*评论成功*/}
        });
 
        //v1，单room
