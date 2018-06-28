@@ -5,18 +5,26 @@ let router = express.Router();
 
 const userCtrl = require("../controller/userController.js");
 const roomCtrl = require("../controller/roomController.js");
+const cmtCtrl = require("../controller/commentController.js");
 const fileCtrl = require("../controller/fileController.js");
 
 // Login router
+router.get("/getAuth",userCtrl.getAuth);
 router.post("/doLogin",userCtrl.doLogin);
 router.post("/doRegist",userCtrl.doRegist);
-router.get("/getAuth",userCtrl.getAuth);
+
 
 //room Router
-router.post("/exitRoom",roomCtrl.exitRoom);
-router.post("/createRoom",roomCtrl.createRoom);
 router.get("/getRoomList",roomCtrl.getRoomList);
 router.get("/getRoomInfo",roomCtrl.getRoomInfo);
+router.post("/exitRoom",roomCtrl.exitRoom);
+router.post("/createRoom",roomCtrl.createRoom);
+
+
+//comment router
+router.get("/getCommentList",cmtCtrl.getCommentList);
+router.post("/reportComment",cmtCtrl.reportComment);
+
 
 //UI Router
 router.get("/room/:roomid",function(req,res){
