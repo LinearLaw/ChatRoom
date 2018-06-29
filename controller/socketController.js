@@ -43,12 +43,6 @@ exports.apiSocket = (socket)=> {
             userCount:count,
             info:"用户 " + info.username + " 加入了房间"
         });
-
-        /* v1，单房间，通知房间内人员 */
-        // io.emit('userConnect', {
-        //     userCount:count,
-        //     info:"用户 " + info.username + " 加入了房间"
-        // });
      });
 
     //用户发出消息
@@ -64,7 +58,7 @@ exports.apiSocket = (socket)=> {
           nowTime:msg.nowTime
        });
 
-       //调用接口，实例化存储
+       //调用接口，存到数据库
        let cmtObj = {
            content:msg.inputVal,
            userId:msg.userId,
@@ -76,14 +70,6 @@ exports.apiSocket = (socket)=> {
            {body:cmtObj},
            {send:function(obj){/*评论成功*/}
        });
-
-       //v1，单room
-       // io.emit("pinglun",{
-       //    inputVal:inputVal,
-       //    userName:userName,
-       //    time:time,
-       //    nowTime:nowTime
-       // });
     });
 
    //点赞
@@ -97,10 +83,6 @@ exports.apiSocket = (socket)=> {
            nowtime:nowtime,
            dianzan:dianzan
         });
-       //  io.emit("dianzanTotal",{
-       //     nowtime:nowtime,
-       //     dianzan:dianzan
-       // });
     });
 
     //退出聊天
@@ -120,7 +102,6 @@ exports.apiSocket = (socket)=> {
             }
         });
         let ri = getRoomId(socket);
-        /* v1，单房间 */
         io.to(ri).emit("userExit",{
             username:n
         })

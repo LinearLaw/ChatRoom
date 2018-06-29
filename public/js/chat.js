@@ -12,6 +12,7 @@ $(".userInfo").show();
 $(".userInfoName").html("User Name: "+userInfo.username);
 
 getRoomInfo();
+getRoomHistory();
 
 
 /************************** EVENT **********************************/
@@ -39,6 +40,39 @@ $(window).bind('beforeunload', function(){
 })
 
 /************************** Function **********************************/
+/**
+ * @desc 获取room的历史记录
+ */
+function getRoomHistory(){
+    $.ajax({
+        url:"/getCommentList",
+        type:"GET",
+        data:{roomId:ri,userId:userInfo.userId},
+        success:function(res){
+            console.log(res);
+            if(res.code == 1){
+                var html = "";
+                res.data.map(function(item,index){
+                    var userSingleWord = item.username.slice(item.username.length-1 , item.username.length);
+                    var data = {
+                        userSingleWord:userSingleWord,
+                        userName:item.username + "",
+                        time:$config.getTime(item.createTime).timeText,
+                        content:item.content,
+                        nowTime:item.createTime
+                    }
+                    html = html + template("cmtTpl",data);
+                });
+                $(".comment-area").append(html);
+                $(".comment-area").scrollTop($(".comment-area")[0].scrollHeight);
+            }
+        },
+        error:function(err){
+            console.log(err);
+        }
+    })
+}
+
 /**
  * @desc 按钮点击发表评论
  */
@@ -108,6 +142,7 @@ socket.on('connect', function () {
 
 //发出消息，评论
 socket.on("pinglun", function (msg) {
+    var userName = msg.userName;
     var userSingleWord = userName.slice(userName.length-1 , userName.length);
     var data = {
         userSingleWord:userSingleWord,

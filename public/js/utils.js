@@ -32,7 +32,7 @@ var $config = {
     //获取roomId
     getRoomId:function(){
         var splited = location.href.split('/');
-        var roomId = splited.split('/')[splited.length - 1];
+        var roomId = splited[splited.length - 1];
         return roomId;
     },
     //从cookie中取用户信息
