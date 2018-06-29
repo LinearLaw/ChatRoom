@@ -17,13 +17,12 @@
             pageSize:pageSize ,
             userId:userInfo.userId
         }
-        // var url = "/getRoomList?pageNum="+pageNum+"&pageSize="+pageSize+"&userId="+userInfo.userId;
         $.ajax({
             url:"/getRoomList",
             method:"GET",
             data:a,
             success:function(res){
-                console.log(res);
+                // console.log(res);
                 if(res.code == 1){
                     var g = res;
                     g.data.map(function(item,index){
@@ -32,7 +31,6 @@
                     });
                     var h = template("roomList",g);
                     $(".roomListContainer").append(h);
-                    // if(scb){scb();}
                     if(res.data.length<=0 && ecb){ecb();}
                 }else{
                     if(ecb){ecb();}
@@ -47,8 +45,7 @@
     /**
      * @desc 上传图片
      */
-    function uploadImg(cb){
-        var titleImgSrc = $("#roomAvatar").attr("src");
+    function uploadImg(titleImgSrc,cb){
         $.ajax({
             url:'/uploadPic?userId='+userInfo.userId,
             method:'post',
@@ -58,9 +55,25 @@
             success:function(res){
                 console.log(res);
                 if(res.code == 1){
-                    $("#roomAvatar").attr("src",nowLocale + res.data);
-                    $("#roomAvatar").data("origin",res.data);
-                    cb();
+                    cb(res.data);
+                }else{
+                    console.log("error");
+                }
+            },
+            error:function(){
+                console.log("error");
+            }
+        })
+    };
+    function updateUserInfo(info,cb){
+        $.ajax({
+            url:'/changeUserInfo',
+            method:'post',
+            data:info,
+            success:function(res){
+                console.log(res);
+                if(res.code == 1){
+                    cb(res.data);
                 }else{
                     console.log("error");
                 }
@@ -78,15 +91,12 @@
         var roomDesc = $("#roomDesc").val().trim();
         var roomAvatar = $("#roomAvatar").data("origin");
         if(!roomName){
-
             return;
         }
         if(!roomDesc){
-
             return;
         }
         if(!roomAvatar){
-
             return;
         }
         var o = {
@@ -116,27 +126,59 @@
             }
         })
     }
+
     getRoomList();
     $(".welcomeName").html(userInfo.username + "");
-
+    if(!!userInfo.userAvatar){
+        $("#headerAvatar").attr("src",nowLocale + userInfo.userAvatar).parent().addClass("active");
+    }
     /**
      * @desc 创建Room提交数据
      */
     $("#createRoomNow").click(function(){
-        uploadImg(function(){
+        var titleImgSrc = $("#roomAvatar").attr("src");
+        uploadImg(titleImgSrc,function(data){
+            $("#roomAvatar").attr("src",nowLocale + data);
+            $("#roomAvatar").data("origin",data);
             createRoom();
-        })
+        });
     });
 
-    //上传图片
+    /**
+     * @desc room上传图片
+     */
     $("#avatarInput").on("change",function(){
         var r= new FileReader();
         f=$('#avatarInput')[0].files[0];
-        console.log(f);
         r.readAsDataURL(f);
         r.onload=function (e) {
-            $(".imgBox").addClass("active");
-            $("#roomAvatar").attr("src",this.result);
+            $("#roomAvatar").attr("src",this.result).parent().addClass("active");
+        };
+    });
+
+    /**
+     * @desc 个人上传图片
+     */
+    $("#avatarInputHeader").on("change",function(){
+        var r= new FileReader();
+        f=$('#avatarInputHeader')[0].files[0];
+        r.readAsDataURL(f);
+        r.onload=function (e) {
+            $("#headerAvatar").attr("src",this.result).parent().addClass("active");
+            // 上传图片
+            var titleImgSrc = $("#headerAvatar").attr("src");
+            uploadImg(titleImgSrc,function(data){
+                $("#headerAvatar").attr("src",nowLocale + data);
+                $("#headerAvatar").data("origin",data);
+                updateUserInfo({
+                    userId:userInfo.userId,
+                    userAvatar:data
+                },function(da){
+                    var _in = JSON.parse( $cookie.get("UIN") )
+                    _in["userAvatar"] = data;
+                    $cookie.set("UIN",JSON.stringify(_in));
+                })
+            });
         };
     });
 

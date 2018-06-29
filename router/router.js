@@ -12,6 +12,7 @@ const fileCtrl = require("../controller/fileController.js");
 router.get("/getAuth",userCtrl.getAuth);
 router.post("/doLogin",userCtrl.doLogin);
 router.post("/doRegist",userCtrl.doRegist);
+router.post("/changeUserInfo",userCtrl.changeUserInfo);
 
 
 //room Router

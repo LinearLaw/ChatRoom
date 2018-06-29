@@ -53,9 +53,20 @@
         <div>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Room</button>
         </div>
-        <div class="col-lg-4 visible-lg-block">
-            <h1>Welcome,</h1>
-            <h2 class="welcomeName"></h1>
+        <div class="col-lg-4 visible-lg-block leftContent">
+            <label for="avatarInputHeader">
+                <div class="imgBox leftNormal">
+                    <img id="headerAvatar" src="" alt="" class="img-rounded">
+                    <span class="glyphicon glyphicon-user"></span>
+                </div>
+            </label>
+            <input type="file" id="avatarInputHeader" style="display:none;" accept="image/*">
+
+            <div class="leftNormal">
+                <h3>Welcome, <span class="welcomeName"></span></h3>
+                <button type="button" class="btn btn-default btn-lg btn-block">My Profile</button>
+            </div>
+
         </div>
         <div class="col-lg-8 col-xs-12 roomListBox">
             <div class="roomListContainer">

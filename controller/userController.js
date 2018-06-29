@@ -34,6 +34,7 @@ exports.doRegist = (req,res)=>{
                     "userId" :userId,
                     "userAccount" :acc,
                     "userPwd":pwd,
+                    "userAvatar":"",
                     "createTime":createTime
                 }
                 let newUser = new User(userObj);
@@ -41,7 +42,6 @@ exports.doRegist = (req,res)=>{
                     res.send({
                         code:1,
                         msg:"success",
-
                     })
                 });
             }
@@ -87,6 +87,7 @@ exports.doLogin = (req,res)=>{
                     data:{
                         username:result[0].username,
                         userId:result[0].userId,
+                        userAvatar:result[0].userAvatar,
                         createTime:result[0].createTime
                     }
                 })
@@ -118,4 +119,49 @@ exports.getAuth = (req,res)=>{
             msg:"auth pass"
         })
     }
+}
+
+//更改用户信息
+exports.changeUserInfo = (req,res)=>{
+    // { userId:""/*必须*/, username:"" , userAvatar:"",userPwd:"" }
+    if(!req.body.userId){
+        res.send({
+            code:4,
+            msg:"send data error , need userId"
+        });
+        return;
+    }
+    if(!req.body.username && !req.body.userAvatar ){
+        res.send({
+            code:4,
+            msg:"send data error , need username|userAvatar"
+        });
+        return;
+    }
+
+    new Promise((resolve,reject)=>{
+        User.find({userId:req.body.userId},(err,result)=>{
+            if(result && result.length>0){
+                resolve(result[0]);
+            }else{
+                res.send({
+                    code:3,
+                    msg:"no such user"
+                });
+                return;
+            }
+        }).then((userRes)=>{
+            let set = {$set:{
+                username:req.body.username || userRes.username,
+                userAvatar:req.body.userAvatar || userRes.userAvatar
+            }};
+            User.update({userId:req.body.userId},set,(err,result)=>{
+                res.send({
+                    code:1,
+                    msg:"success",
+                    data:result
+                })
+            })
+        })
+    })
 }
