@@ -12,7 +12,7 @@ exports.getCommentList = (req,res)=>{
         });
         return;
     }
-    Comment.find({roomId:r}).sort({"_id":-1}).limit(50).exec((err,result)=>{
+    Comment.find({roomId:r}).sort({"_id":1}).limit(50).exec((err,result)=>{
         res.send({
             code:1,
             msg:"success",
@@ -87,7 +87,8 @@ exports.deleteComment = (req,res)=>{
                     res.send({
                         code:2,
                         msg:"User have no auth to delete this comment."
-                    })
+                    });
+                    return;
                 }
             }else{
                 res.send({

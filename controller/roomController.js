@@ -89,7 +89,15 @@ exports.getRoomInfo = (req,res)=>{
     }
     new Promise(function(resolve, reject){
         Room.find({roomId:roomId},(err,result)=>{
-            resolve(result[0]);
+            if(result && result.length>0){
+                resolve(result[0]);
+            }else{
+                res.send({
+                    code:3,
+                    msg:"no such room"
+                });
+                reject();
+            }
         });
     }).then((result)=>{
         User.find({userId:userId},(err,userRes)=>{
