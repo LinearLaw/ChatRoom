@@ -13,6 +13,8 @@ $(".userInfoName").html("User Name: "+userInfo.username);
 
 getRoomInfo();
 
+
+/************************** EVENT **********************************/
 //按回车自动提交
 $(document).keyup(function(event){
     switch(event.keyCode) {
@@ -35,6 +37,8 @@ $(window).bind('beforeunload', function(){
         ri:ri
     })
 })
+
+/************************** Function **********************************/
 /**
  * @desc 按钮点击发表评论
  */
@@ -92,6 +96,7 @@ function dianzan(this_) {
     });
 };
 
+/************************** Socket **********************************/
 //发出消息，连接推送
 socket.on('connect', function () {
     socket.emit('join', {
