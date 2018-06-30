@@ -16,7 +16,6 @@
         <div class="container">
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
@@ -27,14 +26,13 @@
                         <a class="navbar-brand" href="/html/list.html">Chat Room</a>
                     </div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <!-- <li><a href="#"></a></li> -->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="/html/profile.html">Profile</a></li>
                                     <li><a href="#">Setting</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li data-toggle="modal" data-target=".bs-example-modal-sm"><a href="#">Log Out</a></li>
@@ -64,7 +62,9 @@
 
             <div class="leftNormal">
                 <h3>Welcome, <span class="welcomeName"></span></h3>
-                <button type="button" class="btn btn-default btn-lg btn-block">My Profile</button>
+                <a href="/html/profile.html">
+                    <button type="button" class="btn btn-default btn-lg btn-block">My Profile</button>
+                </a>
             </div>
 
         </div>

@@ -8,5 +8,8 @@
         $cookie.del("UIN");
         $("#logOutModal").modal("hide");
         location.reload();
-    })
+    });
+
+    
+
 })()
