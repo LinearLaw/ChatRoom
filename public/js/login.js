@@ -1,8 +1,18 @@
-(function(window){
+ (function(window){
     var reg = {
         a:/^[A-Za-z0-9]{6,16}$/,
         p:/^[A-Za-z0-9]{6,16}$/
     };
+
+    function initInput(){
+        $("#login_field").val("");
+        $("#password").val("");
+        $("#signup_field").val("");
+        $("#signup_a").val("");
+        $("#signup_p").val("");
+        $("#signup_pr").val("");
+    }
+
     function errorMsgHide(){
         $("#js-flash-container").hide();
         $("#js-flash-container_2").hide();
@@ -35,17 +45,24 @@
             method:"POST",
             data:s,
             success:function(res){
+                console.log("success",res);
                 if(res.code == 1){
-                    console.log("success",res);
                     $TipsDialog({text:"Login Success!"});
                     $cookie.set("UIN",JSON.stringify(res.data));
                     location.href = "/html/list.html";
                 }else{
-                    console.log(res);
+                    if(res.code == 2){
+                        $TipsDialog({text:"Account not exist."});return;
+                    }
+                    if(res.code == 3){
+                        $TipsDialog({text:"Account or password error."});return;
+                    }
+                    $TipsDialog({text:"Interval Server Error."});
                 }
             },
             error:function(err){
-                console.log(err)
+                console.log(err);
+                $TipsDialog({text:"Interval Server Error."});
             }
         })
     }
@@ -76,6 +93,7 @@
     })
     //关闭注册弹框
     $(".close-signup").click(function(){
+        initInput();
         errorMsgHide();
         $(".signUpBox").removeClass("active");
         $(".signUpBox").css("opacity",0);
@@ -89,6 +107,7 @@
 
     //弹出注册框
     $(".sign-up-pop").click(function(){
+        initInput();
         $(".signUpBox").show();
         $(".signUpBox").addClass("active");
         $(".signUpBox").css({
@@ -140,11 +159,18 @@
                 if(res.code == 1){
                     $TipsDialog({text:"Success regist ! Use your account to login now !"});
                 }else{
-
+                    if(res.code == 2){
+                        $TipsDialog({text:"Account already exist."});return;
+                    }
+                    if(res.code == 3){
+                        $TipsDialog({text:"Account or password error."});return;
+                    }
+                    $TipsDialog({text:"Interval Server Error."});
                 }
             },
             error:function(err){
                 console.log(err);
+                $TipsDialog({text:"Interval Server Error."});
             }
         })
     })

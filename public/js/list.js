@@ -8,6 +8,13 @@
     var pageNum = 1;
     var nowLocale = $url('protocol',location.href)+"://"+$url('hostname',location.href)+":"+$url('port',location.href);
 
+    function initInput(){
+        $("#romeName").val("");
+        $("#roomDesc").val("");
+        $("#roomAvatar").data("origin","");
+        $("#roomAvatar").attr("src","");
+    }
+
     /*
      * @desc 获取room list
      */
@@ -45,12 +52,13 @@
     /**
      * @desc 上传图片
      */
-    function uploadImg(titleImgSrc,cb){
+    function uploadImg(obj,cb){
         $.ajax({
             url:'/uploadPic?userId='+userInfo.userId,
             method:'post',
             data:{
-                titleImgSrc:titleImgSrc
+                titleImgSrc:obj.titleImgSrc,
+                type:obj.type
             },
             success:function(res){
                 console.log(res);
@@ -116,6 +124,7 @@
                     $(".roomListContainer").html("");
                     pageNum = 1;
                     getRoomList();
+                    initInput();                    
                     $('#myModal').modal("hide");
                 }else{
 
@@ -132,12 +141,19 @@
     if(!!userInfo.userAvatar){
         $("#headerAvatar").attr("src",nowLocale + userInfo.userAvatar).parent().addClass("active");
     }
+
+    $(".closeRoomCreate").click(function(){
+        initInput();
+    })
     /**
      * @desc 创建Room提交数据
      */
     $("#createRoomNow").click(function(){
-        var titleImgSrc = $("#roomAvatar").attr("src");
-        uploadImg(titleImgSrc,function(data){
+        var o = {
+            titleImgSrc:$("#roomAvatar").attr("src"),
+            type:$("#roomAvatar").data("imgtype")
+        }
+        uploadImg(o,function(data){
             $("#roomAvatar").attr("src",nowLocale + data);
             $("#roomAvatar").data("origin",data);
             createRoom();
@@ -150,9 +166,11 @@
     $("#avatarInput").on("change",function(){
         var r= new FileReader();
         f=$('#avatarInput')[0].files[0];
+        console.log(f);
         r.readAsDataURL(f);
         r.onload=function (e) {
-            $("#roomAvatar").attr("src",this.result).parent().addClass("active");
+            $("#roomAvatar").attr("src",this.result).data("imgtype",f.type).parent().addClass("active");
+            console.log($("#roomAvatar").data("imgtype"));
         };
     });
 
@@ -164,10 +182,13 @@
         f=$('#avatarInputHeader')[0].files[0];
         r.readAsDataURL(f);
         r.onload=function (e) {
-            $("#headerAvatar").attr("src",this.result).parent().addClass("active");
+            $("#headerAvatar").attr("src",this.result).data("type",f.type).parent().addClass("active");
             // 上传图片
-            var titleImgSrc = $("#headerAvatar").attr("src");
-            uploadImg(titleImgSrc,function(data){
+            var o = {
+                titleImgSrc:$("#headerAvatar").attr("src"),
+                type:f.type
+            }
+            uploadImg(o,function(data){
                 $("#headerAvatar").attr("src",nowLocale + data);
                 $("#headerAvatar").data("origin",data);
                 updateUserInfo({
