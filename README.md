@@ -88,14 +88,40 @@
         application/json ：json数据
         text/xml ：xml格式的数据
 
-        1、body-parser
-            body-parser用来处理form和json格式的数据。
-            如果数据中带有二进制数据，body-parser无法处理
+            1、body-parser
+                body-parser用来处理form和json格式的数据。
+                如果数据中带有二进制数据，body-parser无法处理
 
-        2、multer
-            multer专门用来处理 [ 带有二进制数据和json数据 ] 的数据
-            即 content-type = multipart/form-data
+                eg:
+                    const bodyParser = require('body-parser');
+                    app.use(bodyParser.json({limit: '50mb'})); //设置数据的最大限制
+                    app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
 
-        3、formidable
-            formidable既可以处理form和json格式的数据，也可以处理带有文件的数据。
-            也就是说，formidable兼具了body-parser和multer的功能。
+                Tips：req.body 可以获取到请求的post数据。
+
+            2、multer
+                multer专门用来处理 [ 带有二进制数据和json数据 ] 的数据
+                即 content-type = multipart/form-data
+
+                eg:
+                    const multer = require('multer');
+                    app.use(multer());
+                
+                Tips：req.body 可以获取到请求的post数据 ，
+                    req.file 可以获取到request的文件数据。
+
+
+            3、formidable
+                formidable既可以处理form和json格式的数据，也可以处理带有文件的数据。
+                也就是说，formidable兼具了body-parser和multer的功能。
+
+                eg:
+                    const formidable = require("formidable");
+                    app.post("/abcdefg",(req,res)=>{
+                        var form = new formidable.IncomingForm();
+                        form.parse(req,(err,fields,files)=>{
+                            //fields 即为请求的post数据
+                            //files 即为请求的request的文件数据
+                            
+                        })
+                    })
