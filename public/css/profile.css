@@ -1,0 +1,10 @@
+.leftBtn{
+    padding-left:0;
+}
+.btn-group-vertical{
+    width:100%;
+}
+.btn-group-vertical button{
+    width:100%;
+    display: block;
+}
