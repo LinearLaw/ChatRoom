@@ -1,3 +1,4 @@
+const path = require("path");
 const User = require("../model/User.js");
 
 exports.doRegist = (req,res)=>{
@@ -142,7 +143,7 @@ exports.changeUserInfo = (req,res)=>{
     new Promise((resolve,reject)=>{
         User.find({userId:req.body.userId},(err,result)=>{
             if(result && result.length>0){
-                resolve(result[0]);
+                resolve(result[0],resolve);
             }else{
                 res.send({
                     code:3,
@@ -150,18 +151,33 @@ exports.changeUserInfo = (req,res)=>{
                 });
                 return;
             }
-        }).then((userRes)=>{
-            let set = {$set:{
-                username:req.body.username || userRes.username,
-                userAvatar:req.body.userAvatar || userRes.userAvatar
-            }};
-            User.update({userId:req.body.userId},set,(err,result)=>{
-                res.send({
-                    code:1,
-                    msg:"success",
-                    data:result
-                })
-            })
         })
+    }).then((userRes,resolve)=>{
+        let set = {$set:{
+            username:req.body.username || userRes.username,
+            userAvatar:req.body.userAvatar || userRes.userAvatar
+        }};
+        var oAvatar = userRes.userAvatar;
+        return new Promise((resolve,reject)=>{
+            User.update({userId:req.body.userId},set,(err,result)=>{
+                if(req.body.userAvatar){
+                    resolve(oAvatar);
+                }else{
+                    res.send({
+                        code:1,
+                        msg:"success"
+                    });
+                };
+            });
+        })
+    }).then((oAvatar)=>{
+        var p = path.resolve(__dirname,"..")+"/public"+oAvatar;
+        fs.unlink(p,(err,re)=>{
+            console.log(err);
+        });
+        res.send({
+            code:1,
+            msg:"success"
+        });
     })
 }
