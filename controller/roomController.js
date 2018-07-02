@@ -128,7 +128,47 @@ exports.getRoomInfo = (req,res)=>{
             }
         })
     })
+}
 
+exports.delRoom = (req,res)=>{
+    // {  roomId:rid,  userId:userInfo.userId  }
+    if(!req.body.userId || !req.body.roomId){
+        res.send({
+            code:4,
+            msg:"send data error, need userId/roomId"
+        })
+        return;
+    }
+    try{
+        Room.find({"roomId":req.body.roomId},(err,result)=>{
+            if(result && result.length>0){
+                if(result[0]["userId"] && result[0]["userId"] == req.body.userId){
+                    Room.remove({roomId:req.body.roomId},(err)=>{
+                        if(err){
+                            res.send({
+                                code:-1,
+                                msg:"Interval Server Error",
+                                data:err
+                            })
+                        }else{
+                            res.send({
+                                code:1,
+                                msg:"success"
+                            });
+                        }
+                    })
+                }
+            }else{
+                res.send({
+                    code:2,
+                    msg:"user have no auth to delete this room, or room not exist"
+                })
+            }
+            
+        })
+    }catch(err){
+        console.log(err);
+    }
 }
 
 exports.exitRoom = (req,res)=>{
@@ -161,10 +201,12 @@ exports.exitRoom = (req,res)=>{
                     return;
                 })
             }
+        }else{
+            res.send({
+                code:2,
+                msg:"user have no auth to exit this room, or room not exist"
+            })
         }
-        res.send({
-            code:2,
-            msg:"user have no auth to exit this room, or room not exist"
-        })
+        
     })
 }

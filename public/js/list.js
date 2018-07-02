@@ -35,6 +35,7 @@
                     g.data.map(function(item,index){
                         g.data[index]["timeText"] = $config.getTime(item.createTime).timeText;
                         g.data[index]["originAvatar"] = nowLocale + g.data[index]["roomAvatar"];
+                        g.data[index]["curUI"]=userInfo.userId
                     });
                     var h = template("roomList",g);
                     $(".roomListContainer").append(h);
@@ -144,7 +145,43 @@
 
     $(".closeRoomCreate").click(function(){
         initInput();
+    });
+
+    /**
+     * @desc 删除房间
+     */
+    $(".roomListContainer").on("click",".deleteItem",function(event){
+        var rid = $(event.currentTarget).data("i");
+        var s = {
+            roomId:rid,
+            userId:userInfo.userId
+        }
+        $.ajax({
+            url:"/delRoom",
+            method:"POST",
+            data:s,
+            success:function(res){
+                console.log(res);
+                if(res.code == 1){
+                    $TipsDialog({text:"Delete Room Success!"});
+                    $(".roomListContainer").html("");
+                    pageNum = 1;
+                    getRoomList();
+                }else{
+                    if(res.code == 2){
+                        $TipsDialog({text:"This room you have no auth to delete"});
+                        return;
+                    }
+                    $TipsDialog({text:"Error"});
+                }
+            },
+            error:function(err){
+                $TipsDialog({text:"Error"});
+                console.log(err);
+            }
+        })
     })
+
     /**
      * @desc 创建Room提交数据
      */

@@ -143,6 +143,9 @@
                         </a>
                         <div class="joinPeopleBox clearfix">
                             <span>{{ $value.timeText }}</span>
+                            {{if $value.userId == $value.curUI}}
+                            <span class="deleteItem" data-i="{{$value.roomId}}">Delete</span>  
+                            {{/if}}                          
                             <span class="glyphicon glyphicon-user pull-right" aria-hidden="true"></span>
                             {{if $value.join }}
                             <span class="joinNum pull-right"> {{$value.join.length || ""}} </span>

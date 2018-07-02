@@ -22,6 +22,8 @@
     height:100%;
 }
 
+.deleteItem{cursor:pointer;}
+.deleteItem:hover{border-bottom:1px solid #999;}
 .welcomeName{
     font-weight:600;
 }

@@ -19,6 +19,7 @@ router.post("/changeUserInfo",userCtrl.changeUserInfo);
 router.get("/getRoomList",roomCtrl.getRoomList);
 router.get("/getRoomInfo",roomCtrl.getRoomInfo);
 router.post("/exitRoom",roomCtrl.exitRoom);
+router.post("/delRoom",roomCtrl.delRoom);
 router.post("/createRoom",roomCtrl.createRoom);
 
 
