@@ -1,9 +1,5 @@
 (function(){
-    $getAuth(function(){
-        location.href = $config.loginPage;
-        return;
-    })
-    var userInfo = $config.getUserInfo();
+
     var pageSize = 10;
     var pageNum = 1;
     var nowLocale = $url('protocol',location.href)+"://"+$url('hostname',location.href)+":"+$url('port',location.href);
@@ -50,48 +46,7 @@
             }
         })
     }
-    /**
-     * @desc 上传图片
-     */
-    function uploadImg(obj,cb){
-        $.ajax({
-            url:'/uploadPic?userId='+userInfo.userId,
-            method:'post',
-            data:{
-                titleImgSrc:obj.titleImgSrc,
-                type:obj.type
-            },
-            success:function(res){
-                console.log(res);
-                if(res.code == 1){
-                    cb(res.data);
-                }else{
-                    console.log("error");
-                }
-            },
-            error:function(){
-                console.log("error");
-            }
-        })
-    };
-    function updateUserInfo(info,cb){
-        $.ajax({
-            url:'/changeUserInfo',
-            method:'post',
-            data:info,
-            success:function(res){
-                console.log(res);
-                if(res.code == 1){
-                    cb(res.data);
-                }else{
-                    console.log("error");
-                }
-            },
-            error:function(){
-                console.log("error");
-            }
-        })
-    }
+
     /**
      * @desc 创建room
      */
@@ -99,15 +54,9 @@
         var roomName = $("#romeName").val().trim();
         var roomDesc = $("#roomDesc").val().trim();
         var roomAvatar = $("#roomAvatar").data("origin");
-        if(!roomName){
-            return;
-        }
-        if(!roomDesc){
-            return;
-        }
-        if(!roomAvatar){
-            return;
-        }
+        if(!roomName){return;}
+        if(!roomDesc){return;}
+        if(!roomAvatar){return;}
         var o = {
             "userId":userInfo.userId,
             "roomName":roomName ,
@@ -119,7 +68,6 @@
             method:"POST",
             data:o,
             success:function(res){
-                console.log(res);
                 if(res.code == 1){
                     $TipsDialog({text:"Create Room Success!"});
                     $(".roomListContainer").html("");
@@ -190,7 +138,7 @@
             titleImgSrc:$("#roomAvatar").attr("src"),
             type:$("#roomAvatar").data("imgtype")
         }
-        uploadImg(o,function(data){
+        $commonRequest.uploadImg(o,function(data){
             $("#roomAvatar").attr("src",nowLocale + data);
             $("#roomAvatar").data("origin",data);
             createRoom();
@@ -207,7 +155,6 @@
         r.readAsDataURL(f);
         r.onload=function (e) {
             $("#roomAvatar").attr("src",this.result).data("imgtype",f.type).parent().addClass("active");
-            console.log($("#roomAvatar").data("imgtype"));
         };
     });
 
@@ -225,13 +172,16 @@
                 titleImgSrc:$("#headerAvatar").attr("src"),
                 type:f.type
             }
-            uploadImg(o,function(data){
+            //上传图片到服务器
+            $commonRequest.uploadImg(o,function(data){
                 $("#headerAvatar").attr("src",nowLocale + data);
                 $("#headerAvatar").data("origin",data);
-                updateUserInfo({
+                //更新个人信息
+                $commonRequest.updateUserInfo({
                     userId:userInfo.userId,
                     userAvatar:data
                 },function(da){
+                    $TipsDialog({text:"Success!"});
                     var _in = JSON.parse( $cookie.get("UIN") )
                     _in["userAvatar"] = data;
                     $cookie.set("UIN",JSON.stringify(_in));
@@ -254,5 +204,4 @@
             });
         },100);
     });
-
 })()

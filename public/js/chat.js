@@ -1,11 +1,4 @@
-$getAuth(function(){
-    location.href = $config.loginPage;
-    return;
-})
-
-var userName; // 用户名
 var socket = io();
-var userInfo = $config.getUserInfo();
 
 var ri = $config.getRoomId() || "admin";
 $(".userInfo").show();

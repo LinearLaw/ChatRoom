@@ -13,12 +13,45 @@ var $cookie = {
     }
 };
 
-var $getAuth = function(callback){
-    $.ajax({
-        url:"/getAuth",method:"GET",
-        success:function(res){/* console.log(res);*/if(res.code == 1){}else{callback();}},
-        error:function(err){ console.log(err); }
-    })
+var $commonRequest = {
+    //获取授权
+    getAuth:function(callback){
+        $.ajax({
+            url:"/getAuth", method:"GET",
+            success:function(res){/* console.log(res);*/if(res.code == 1){  }else{callback();}},
+            error:function(err){  console.log(err); }
+        })
+    },
+    //上传图片
+    uploadImg:function(obj,cb){
+        $.ajax({
+            url:'/uploadPic?userId='+userInfo.userId, method:'post',
+            data:{ titleImgSrc:obj.titleImgSrc,type:obj.type },
+            success:function(res){
+                if(res.code == 1){
+                    cb(res.data);
+                }else{
+                    console.log("error");
+                }
+            },
+            error:function(){  console.log("error");  }
+        })
+    },
+    //更新个人信息
+    updateUserInfo:function(info,cb){
+        $.ajax({
+            url:'/changeUserInfo', method:'post',
+            data:info,
+            success:function(res){
+                if(res.code == 1){
+                    cb(res.data);
+                }else{
+                    console.log("error");
+                }
+            },
+            error:function(){  console.log("error");  }
+        })
+    }
 }
 
 var $config = {
@@ -66,3 +99,11 @@ var $config = {
     var tipsDialog = function(options) {return new TipsDialog(options);}
     window.$TipsDialog = $.tipsDialog = $.tipsDialog = tipsDialog;
 })(window.jQuery , window);
+
+
+//验证
+$commonRequest.getAuth(function(){
+    location.href = $config.loginPage;
+    return;
+})
+var userInfo = $config.getUserInfo();

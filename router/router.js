@@ -13,6 +13,7 @@ router.get("/getAuth",userCtrl.getAuth);
 router.post("/doLogin",userCtrl.doLogin);
 router.post("/doRegist",userCtrl.doRegist);
 router.post("/changeUserInfo",userCtrl.changeUserInfo);
+router.post("/changePwd",userCtrl.changePwd);
 
 
 //room Router

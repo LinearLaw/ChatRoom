@@ -143,7 +143,7 @@ exports.changeUserInfo = (req,res)=>{
     new Promise((resolve,reject)=>{
         User.find({userId:req.body.userId},(err,result)=>{
             if(result && result.length>0){
-                resolve(result[0],resolve);
+                resolve(result[0]);
             }else{
                 res.send({
                     code:3,
@@ -152,7 +152,7 @@ exports.changeUserInfo = (req,res)=>{
                 return;
             }
         })
-    }).then((userRes,resolve)=>{
+    }).then((userRes)=>{
         let set = {$set:{
             username:req.body.username || userRes.username,
             userAvatar:req.body.userAvatar || userRes.userAvatar
@@ -180,4 +180,38 @@ exports.changeUserInfo = (req,res)=>{
             msg:"success"
         });
     })
+}
+
+//更改密码
+exports.changePwd = (req,res)=>{
+    //{ userId:"", pwd:"" }
+    new Promise((resolve,reject)=>{
+        User.find({userId:req.body.userId},(err,result)=>{
+            if(result && result.length>0){
+                let up = config.md5Create.pwdCreate(req.body.pwd);
+                if(result[0]["userPwd"] == up){
+                    resolve(up);
+                }else{
+                    res.send({
+                        code:3,
+                        msg:"Account or password error"
+                    })
+                    return;
+                }
+            }else{
+                res.send({
+                    code:3,
+                    msg:"no such user"
+                });
+                return;
+            }
+        })
+    }).then((up)=>{
+        User.update({userId:req.body.userId},{ $set:{userPwd:up} },(err,result)=>{
+            res.send({
+                code:1,
+                msg:"success"
+            })
+        })
+    })  
 }
