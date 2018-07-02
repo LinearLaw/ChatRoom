@@ -160,27 +160,13 @@ exports.changeUserInfo = (req,res)=>{
         var oAvatar = userRes.userAvatar;
         return new Promise((resolve,reject)=>{
             User.update({userId:req.body.userId},set,(err,result)=>{
-                // if(req.body.userAvatar){
-                //     resolve(oAvatar);
-                // }else{
-                    res.send({
+                res.send({
                         code:1,
                         msg:"success"
-                    });
-                // };
+                });
             });
         })
     })
-    // .then((oAvatar)=>{
-    //     var p = path.resolve(__dirname,"..")+"/public"+oAvatar;
-    //     fs.unlink(p,(err,re)=>{
-    //         console.log(err);
-    //     });
-    //     res.send({
-    //         code:1,
-    //         msg:"success"
-    //     });
-    // })
 }
 
 //更改密码
