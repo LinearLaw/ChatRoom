@@ -52,9 +52,11 @@ function getRoomHistory(){
                 var html = "";
                 res.data.map(function(item,index){
                     var userSingleWord = item.username.slice(item.username.length-1 , item.username.length);
+                    var userA = item.userAvatar?nowLocale + item.userAvatar:"";
                     var data = {
                         userSingleWord:userSingleWord,
                         userName:item.username + "",
+                        userAvatar:userA,
                         time:$config.getTime(item.createTime).timeText,
                         content:item.content,
                         nowTime:item.createTime
@@ -84,6 +86,7 @@ function report(e) {
     socket.emit("fabiao", {
         "userId":userInfo.userId,
         "userName": userInfo.username,
+        "userAvatar":userInfo.userAvatar,
         "inputVal": inputVal,
         "nowTime": nowTime
     });
@@ -138,13 +141,15 @@ socket.on('connect', function () {
     });
 });
 
-//发出消息，评论
+//收到消息，评论
 socket.on("pinglun", function (msg) {
     var userName = msg.userName;
     var userSingleWord = userName.slice(userName.length-1 , userName.length);
+    var userA = msg.userAvatar?nowLocale + msg.userAvatar:"";
     var data = {
         userSingleWord:userSingleWord,
         userName:msg.userName + "",
+        userAvatar:userA,
         time:msg.time,
         content:msg.inputVal,
         nowTime:msg.nowTime

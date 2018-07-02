@@ -24,16 +24,17 @@
             // 上传图片
             var o = {
                 titleImgSrc:$("#headerAvatar").attr("src"),
-                type:f.type
+                type:f.type,
+                imgUse:1
             }
             //上传图片到服务器
             $commonRequest.uploadImg(o,function(data){
-                $("#headerAvatar").attr("src",nowLocale + data);
+                // $("#headerAvatar").attr("src",nowLocale + data);
                 $("#headerAvatar").data("origin",data);
                 //更新个人信息
                 $commonRequest.updateUserInfo({
                     userId:userInfo.userId,
-                    userAvatar:data
+                    userAvatar:data,
                 },function(da){
                     $TipsDialog({text:"Success!"});
                     var _in = JSON.parse( $cookie.get("UIN") )

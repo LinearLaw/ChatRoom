@@ -103,12 +103,15 @@
             <div class="comment-area">
                 <!-- comment area -->
             </div>
-
             <!-- template 1  commentTpl-->
             <script type="text/html" id="cmtTpl">
                 <div class="comment-item" nowtime="{{nowTime}}">
-                    <a href="#" class="avatar noAvatar">
+                    <a href="#" class="avatar">
+                        {{if userAvatar}}
+                        <img src="{{userAvatar}}" alt="">
+                        {{else}}
                         <span> {{userSingleWord}} </span>
+                        {{/if}}
                     </a>
                     <div class="content">
                         <div class="from">

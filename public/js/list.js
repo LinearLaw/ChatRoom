@@ -138,7 +138,8 @@
     $("#createRoomNow").click(function(){
         var o = {
             titleImgSrc:$("#roomAvatar").attr("src"),
-            type:$("#roomAvatar").data("imgtype")
+            type:$("#roomAvatar").data("imgtype"),
+            imgUse:0
         }
         $commonRequest.uploadImg(o,function(data){
             $("#roomAvatar").attr("src",nowLocale + data);
@@ -172,11 +173,12 @@
             // 上传图片
             var o = {
                 titleImgSrc:$("#headerAvatar").attr("src"),
-                type:f.type
+                type:f.type,
+                imgUse:1
             }
             //上传图片到服务器
             $commonRequest.uploadImg(o,function(data){
-                $("#headerAvatar").attr("src",nowLocale + data);
+                // $("#headerAvatar").attr("src",nowLocale + data);
                 $("#headerAvatar").data("origin",data);
                 //更新个人信息
                 $commonRequest.updateUserInfo({
@@ -187,6 +189,7 @@
                     var _in = JSON.parse( $cookie.get("UIN") )
                     _in["userAvatar"] = data;
                     $cookie.set("UIN",JSON.stringify(_in));
+                    // location.reload();
                 })
             });
         };

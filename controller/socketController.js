@@ -54,6 +54,7 @@ exports.apiSocket = (socket)=> {
        io.to(ri).emit("pinglun",{
           inputVal:msg.inputVal,
           userName:msg.userName,
+          userAvatar:msg.userAvatar || "",
           time:time,
           nowTime:msg.nowTime
        });

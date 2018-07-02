@@ -24,9 +24,12 @@ var $commonRequest = {
     },
     //上传图片
     uploadImg:function(obj,cb){
+        if(obj.imgUse != 1){
+            obj.imgUse = 0;
+        }
         $.ajax({
             url:'/uploadPic?userId='+userInfo.userId, method:'post',
-            data:{ titleImgSrc:obj.titleImgSrc,type:obj.type },
+            data:{ titleImgSrc:obj.titleImgSrc , type:obj.type , imgUse:obj.imgUse },
             success:function(res){
                 if(res.code == 1){
                     cb(res.data);
