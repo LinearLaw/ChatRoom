@@ -1,5 +1,16 @@
 (function(){
+    $commonRequest.getAuth(function(){
+        location.href = $config.loginPage;
+        return;
+    })
 
+    if(userInfo.userAvatar){
+        $("#headerAvatar").attr("src",nowLocale + userInfo.userAvatar);
+        $("#headerAvatar").data("origin",userInfo.userAvatar).parent().addClass("active");
+    }
+    if(userInfo.username){
+        $("#nickName").val(userInfo.username);
+    }
 
     /**
      * @desc 个人上传图片
@@ -58,17 +69,38 @@
      * @desc 更改密码
      */
     $(".updatePwd").click(function(){
-        var pwd = $("#pwdInput").val().trim();
-        var pwd_2 = $("#pwdInput_2").val().trim();
-        if(!pwd || !pwd_2){
+        var curP = $("#pwdInput").val().trim();
+        var newP = $("#newInput").val().trim();
+        var newP_2 = $("#newInput_2").val().trim();
+        if(!curP || !newP || !newP_2){
             $TipsDialog({text:"Please input password/confirm password."});
             return;
         }
-        if(pwd != pwd_2){
+        if(newP != newP_2){
             $TipsDialog({text:"Password should same with confirm password."});
             return;
         }
-
+        var s = {
+            cp:curP,
+            np:newP,
+            userId:userInfo.userId
+        }
+        $.ajax({
+            url:"/changePwd",
+            method:"POST",
+            data:s,
+            success:function(res){
+                // console.log(res);
+                if(res.code == 1){
+                    $TipsDialog({text:"Success."});
+                }else{
+                    $TipsDialog({text:"Error."});
+                }
+            },
+            error:function(err){
+                $TipsDialog({text:"Interval Server Error."});
+            }
+        })
     });
     
 

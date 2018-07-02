@@ -1,8 +1,10 @@
 (function(){
-
+    $commonRequest.getAuth(function(){
+        location.href = $config.loginPage;
+        return;
+    })
     var pageSize = 10;
     var pageNum = 1;
-    var nowLocale = $url('protocol',location.href)+"://"+$url('hostname',location.href)+":"+$url('port',location.href);
 
     function initInput(){
         $("#romeName").val("");

@@ -1,3 +1,8 @@
+$commonRequest.getAuth(function(){
+    location.href = $config.loginPage;
+    return;
+})
+
 var socket = io();
 
 var ri = $config.getRoomId() || "admin";

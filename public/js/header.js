@@ -7,7 +7,7 @@
         $cookie.del("SID");
         $cookie.del("UIN");
         $("#logOutModal").modal("hide");
-        location.reload();
+        location.href = $config.loginPage;
     });
 
     

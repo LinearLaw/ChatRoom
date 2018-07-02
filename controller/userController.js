@@ -184,17 +184,24 @@ exports.changeUserInfo = (req,res)=>{
 
 //更改密码
 exports.changePwd = (req,res)=>{
-    //{ userId:"", pwd:"" }
+    //{ userId:"", cp:"" , np:"" }
+    if(!req.body.userId || !req.body.cp || !req.body.np){
+        res.send({
+            code:4,
+            msg:"send data error , need userId/currentPwd(cp)/newPwd(np)"
+        });
+        return;
+    }
     new Promise((resolve,reject)=>{
         User.find({userId:req.body.userId},(err,result)=>{
             if(result && result.length>0){
-                let up = config.md5Create.pwdCreate(req.body.pwd);
-                if(result[0]["userPwd"] == up){
-                    resolve(up);
+                let sendCp = config.md5Create.pwdCreate(req.body.cp);
+                if(result[0]["userPwd"] == sendCp){
+                    resolve(sendCp);
                 }else{
                     res.send({
                         code:3,
-                        msg:"Account or password error"
+                        msg:"Password error"
                     })
                     return;
                 }
@@ -206,8 +213,9 @@ exports.changePwd = (req,res)=>{
                 return;
             }
         })
-    }).then((up)=>{
-        User.update({userId:req.body.userId},{ $set:{userPwd:up} },(err,result)=>{
+    }).then((sendCp)=>{
+        let newCp = config.md5Create.pwdCreate(req.body.np);
+        User.update({userId:req.body.userId},{ $set:{userPwd:newCp} },(err,result)=>{
             res.send({
                 code:1,
                 msg:"success"

@@ -70,7 +70,14 @@ var $config = {
     },
     //从cookie中取用户信息
     getUserInfo:function(){
-        if(!$cookie.get("UIN") ){location.href = $config.loginPage;return false;}
+        if(!$cookie.get("UIN") ){
+            if(location.href.indexOf($config.loginPage)!=-1){
+                return;
+            }else{
+                location.href = $config.loginPage;
+                return;
+            }
+        }
         return JSON.parse($cookie.get("UIN"));
     },
     //传入时间戳，生成时间字符串
@@ -102,8 +109,6 @@ var $config = {
 
 
 //验证
-$commonRequest.getAuth(function(){
-    location.href = $config.loginPage;
-    return;
-})
+
 var userInfo = $config.getUserInfo();
+var nowLocale = $url('protocol',location.href)+"://"+$url('hostname',location.href)+":"+$url('port',location.href);
