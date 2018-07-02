@@ -1,3 +1,4 @@
+const path = require("path");
 const Room = require("../model/Room.js");
 const User = require("../model/User.js")
 
@@ -157,6 +158,10 @@ exports.delRoom = (req,res)=>{
                             });
                         }
                     })
+                    var p = path.resolve(__dirname,"..")+"/public"+result[0]["roomAvatar"];
+                    fs.unlink(p,(err,re)=>{
+                        console.log(err);
+                    });
                 }
             }else{
                 res.send({
