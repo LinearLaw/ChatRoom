@@ -11,6 +11,7 @@
         $("#roomDesc").val("");
         $("#roomAvatar").data("origin","");
         $("#roomAvatar").attr("src","");
+        $("#roomAvatar").parent().removeClass("active");
     }
 
     /*
@@ -78,11 +79,14 @@
                     initInput();                    
                     $('#myModal').modal("hide");
                 }else{
-
+                    $TipsDialog({text:"Create Room Failed ! Try Again ?"});
                 }
+                $config.loading("hide");
             },
             error:function(err){
                 console.log(err);
+                $config.loading("hide");     
+                $TipsDialog({text:"Create Room Failed ! Try Again ?"});           
             }
         })
     }
@@ -141,6 +145,7 @@
             type:$("#roomAvatar").data("imgtype"),
             imgUse:0
         }
+        $config.loading();
         $commonRequest.uploadImg(o,function(data){
             $("#roomAvatar").attr("src",nowLocale + data);
             $("#roomAvatar").data("origin",data);
@@ -176,6 +181,7 @@
                 type:f.type,
                 imgUse:1
             }
+
             //上传图片到服务器
             $commonRequest.uploadImg(o,function(data){
                 // $("#headerAvatar").attr("src",nowLocale + data);
@@ -204,6 +210,7 @@
             $(e.currentTarget).children(".glyphicon").addClass("roundFresh");
             pageNum++;
             getRoomList(function(){},function(){
+                $TipsDialog({text:"No More Data."});
                 pageNum--;
                 if(pageNum<=1){pageNum=1;}
             });

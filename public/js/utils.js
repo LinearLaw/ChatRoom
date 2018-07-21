@@ -35,9 +35,10 @@ var $commonRequest = {
                     cb(res.data);
                 }else{
                     console.log("error");
+                    $config.loading("hide");
                 }
             },
-            error:function(){  console.log("error");  }
+            error:function(){  console.log("error");$config.loading("hide");}
         })
     },
     //更新个人信息
@@ -91,6 +92,24 @@ var $config = {
         return {
             timeObj:o,
             timeText:text
+        }
+    },
+    /**
+     * @desc loading封装，需要多引入一个common.css
+     *      用法  loading()和loading("show")都是显示
+     *          loading("hide")是隐藏
+     */
+    loading:function(str){
+        var tpl = ' <div class="loadingShadow" style="display:none;"><div class="shadow"></div><div class="loadingBox"><p class="glyphicon glyphicon-refresh"></p><p class="loadingText">Loading...</p></div></div>';
+        if($(".loadingShadow").length<=0){
+            $("body").append(tpl);
+        };
+        if(!str){
+            $(".loadingShadow").show();
+        }else if(str == "show"){
+            $(".loadingShadow").show();
+        }else{
+            $(".loadingShadow").hide();
         }
     }
 }

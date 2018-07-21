@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Room List</title>
     <link rel="stylesheet" href="../js/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/list.css">
 </head>
 
@@ -127,6 +128,14 @@
             </div>
         </div>
     </div>
+    <div class="loadingShadow" style="display:none;">
+        <div class="shadow"></div>
+        <div class="loadingBox">
+            <p class="glyphicon glyphicon-refresh"></p>
+            <p class="loadingText">Loading...</p>
+        </div>
+    </div>
+
     <!-- template -->
     <script type="text/html" id="roomList">
         {{if data.length>0}}
