@@ -32,7 +32,7 @@ app.use((req, res, next)=>{
 });
 
 //中间件挂载
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve(__dirname,'./public')));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb',extended: true }));
 
