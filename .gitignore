@@ -18,3 +18,5 @@ selenium-debug.log
 
 Database/
 imgData/
+
+package-lock.json
